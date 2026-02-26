@@ -25,6 +25,7 @@
     <script>
         $(document).ready(function() {
             $("#button").click(function() {
+                
 
                 var name = $("#name").val();
                 var pass = $("#pass").val();
@@ -34,22 +35,25 @@
                     $("#error").html("all fields are required");
                 } else {
                     $("#error").html("");
+                    console.log("sending request...");  
                     $.post("/mini_pro/controller/reg_control.php", {
                             name,
                             pass,
                             role
                         },
                         function(response) {
+                          
+                            
                             console.log("SERVER RESPONSE:", response);
-                            if (response === "exists") {
+                            if (response.status === "exists") {
                                window.location.href = "/mini_pro/view/auth/login.php";
-                            } else if (response === "registered") {
+                            } else if (response.status === "registered") {
                                 $("#error").html("Registration successful");
                             } else {    
                                 $("#error").html("Something went wrong");
                             }
 
-                        });
+                        },"json");
                 }
             })
         });

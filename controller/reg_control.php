@@ -1,27 +1,70 @@
 <?php
- $username = trim($_POST['name']);
- $password = trim($_POST['pass']);
- $role = $_POST['role'];
+header('Content-Type: application/json');
 
- require_once "C:/xampp/htdocs/mini_pro/config/dbconfig.php";
+$username = trim($_POST['name'] ?? '');
+$password = trim($_POST['pass'] ?? '');
+$role     = $_POST['role'] ?? '';
 
- try {
-    if($connected == 1){
-    $res = $conn->query("select * from users where name = '$username' and role_id = '$role' ");
-    if($res->rowCount() > 0){
-         echo "exists"; 
-         exit;
+if ($username === '' || $password === '' || $role === '') {
+    echo json_encode([
+        "status" => "error",
+        "message" => "All fields required"
+    ]);
+    exit;
+}
+
+require_once __DIR__ . "/../config/dbconfig.php";
+require_once __DIR__ . "/../model/usermodel.php";
+
+try {
+
+    if ($connected != 1) {
+        echo json_encode([
+            "status" => "failed",
+            "message" => "Database connection failed"
+        ]);
+        exit;
     }
-    else{
-        $stmt = $conn->prepare("insert into users (name,password,role_id) values (?,?,?)");
-        $stmt->execute([$username,hash("sha256",$password),$role]);
-            echo "registered";
+
+    $userModel = new User($conn);
+
+    // ✅ check if user exists
+    $existingUser = $userModel->check($username, $role);
+
+    if ($existingUser) {
+        echo json_encode([
+            "status" => "exists",
+            "message" => "Username already registered"
+        ]);
+        exit;
     }
+
+    // ✅ register user
+    $created = $userModel->register($username, $password, $role);
+
+    if ($created) {
+        echo json_encode([
+            "status" => "registered",
+            "message" => "Registration successful"
+        ]);
+        exit;
     }
- } catch (PDOException $e) {
-    file_put_contents(__DIR__."/../error.txt",date("H:i:s Y-m-d : ").$e->getMessage().PHP_EOL,FILE_APPEND);
-    echo "error : ".$e->getMessage();
-    
- }
-?>
- 
+
+    echo json_encode([
+        "status" => "failed",
+        "message" => "Registration failed"
+    ]);
+
+} catch (PDOException $e) {
+
+    file_put_contents(
+        __DIR__ . "/../error.txt",
+        date("H:i:s Y-m-d : ") . $e->getMessage().$e->getLine() . PHP_EOL,
+        FILE_APPEND
+    );
+
+    echo json_encode([
+        "status" => "error",
+        "message" => "Server error"
+    ]);
+}
