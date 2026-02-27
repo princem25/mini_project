@@ -27,3 +27,10 @@
 08:00:02 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'C:\xampp\htdocs\mini_pro\model\usermodel.php
 08:00:24 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'31
 08:02:13 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'31
+08:01:02 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+08:01:54 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+08:02:30 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_pro\model\tournament.php
+08:02:52 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_pro\model\tournament.php20
+08:03:18 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20
+08:04:12 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20
+08:04:23 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20

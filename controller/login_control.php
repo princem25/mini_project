@@ -5,8 +5,8 @@
     $password = trim($_POST['pass'] ?? '');
     $role     = $_POST['role'] ?? '';
 
-    require_once "C:/xampp/htdocs/mini_pro/config/dbconfig.php";
-    require_once "C:/xampp/htdocs/mini_pro/model/usermodel.php";
+    require_once "C:/xampp_new/htdocs/mini_pro/config/dbconfig.php";
+    require_once "C:/xampp_new/htdocs/mini_pro/model/usermodel.php";
 
     try {
 
@@ -27,10 +27,12 @@
             session_regenerate_id(true);
 
             $_SESSION['role'] = (int)$role;
+            setcookie("name",$username,time()+86400,"/");
 
             echo json_encode([
                 "status" => "success",
-                "role"   => $_SESSION['role']
+                "role"   => $_SESSION['role'],
+                 
             ]);
             exit;
         } else {

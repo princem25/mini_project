@@ -11,34 +11,22 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
 <html lang="en">
 
 <head>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Document</title>
 </head>
 
 <body>
-    hello , admin
-    <p id="error"></p>
-    <button id="logout">Logout</button>
 
-    <script>
-        $(document).ready(function() {
+    <h3>Welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) . "<br>You Have Admin Access" ?> </h3>
 
-            $("#logout").click(function() {
-                $.get("/mini_pro/controller/logout_control.php", function(resp) {
-                    console.log(resp);
+    <h4>You have access to :</h4>
+    <a href="../tournament/tour_dash.php">Tournament Management</a><br><br>
+    <a href="">Team Management</a>
+ <p id="error"></p>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
 
-                    if (resp.status === "ok") {
-                        window.location.href = "/mini_pro/view/auth/login.php";
-                    } else {
-                        $("#error").html(resp.message);
-                    }
 
-                }, "json");
-            });
-
-        });
-    </script>
 </body>
 
 </html>
