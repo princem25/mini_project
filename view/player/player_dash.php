@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['role']) || $_SESSION['role'] != 2){
+if (!isset($_SESSION['role']) || (int)$_SESSION['role'] !== 2) {
     header("Location:/mini_pro/view/auth/login.php");
     exit;
 }
@@ -11,37 +11,24 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 2){
 <html lang="en">
 
 <head>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Document</title>
 </head>
 
 <body>
-    hello player
-    <p id ="error"></p>
-    <button id="logout">Logout</button>
+   <h2>hello , <?php if(isset($_COOKIE['name'])) echo $_COOKIE['name']?> welcome to tournaments</h2> 
+    <button id="load">Tournaments Data</button><br><br>
+    <div id="data"></div><br><br>
+    <p id="error"></p>
+
+
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
 </body>
 
-<script>
- 
-$(document).ready(function(){
 
-    $("#logout").click(function(){
-        $.get("/mini_pro/controller/logout_control.php", function(resp){
-            console.log(resp);
 
-            if(resp.status === "ok") {
-                window.location.href = "/mini_pro/view/auth/login.php";
-            } else {
-                $("#error").html(resp.message);
-            }
-
-        }, "json");
-    });
-
-});
- 
-</script>
- 
 
 </html>

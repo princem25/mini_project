@@ -36,7 +36,7 @@
                 } else {
                     $("#error").html("");
                     console.log("sending request...");  
-                    $.post("/mini_pro/controller/reg_control.php", {
+                    $.post("/mini_pro/controller/authcontroller/reg_control.php", {
                             name,
                             pass,
                             role

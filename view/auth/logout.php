@@ -3,11 +3,7 @@ if(session_status() !== PHP_SESSION_ACTIVE){
 session_start();
 }
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
-    header("Location:/mini_pro/view/auth/login.php");
-    exit;
-}
-
+ 
 if (!isset($_SESSION['role'])) {
     header("Location:/mini_pro/view/auth/login.php");
     exit;
@@ -32,7 +28,7 @@ if (!isset($_SESSION['role'])) {
         $(document).ready(function() {
 
             $("#logout").click(function() {
-                $.get("/mini_pro/controller/logout_control.php", function(resp) {
+                $.get("/mini_pro/controller/authcontroller/logout_control.php", function(resp) {
                     console.log(resp);
 
                     if (resp.status === "ok") {

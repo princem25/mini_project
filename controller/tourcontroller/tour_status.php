@@ -1,15 +1,14 @@
     <?php
     header('Content-Type: application/json');
 
-    $username = trim($_POST['name'] ?? '');
-    $password = trim($_POST['pass'] ?? '');
-    $role     = $_POST['role'] ?? '';
-
+    $id = trim($_POST['id'] ?? '');
+    $status = trim($_POST['status'] ?? '');
+     
     require_once "C:/xampp_new/htdocs/mini_pro/config/dbconfig.php";
-    require_once "C:/xampp_new/htdocs/mini_pro/model/usermodel.php";
+    require_once "C:/xampp_new/htdocs/mini_pro/model/tournament.php";
 
     try {
-
+  
         if ($connected != 1) {
             echo json_encode([
                 "status" => "failed",
@@ -18,34 +17,42 @@
             exit;
         }
 
-        $userModel = new User($conn);
-        $user = $userModel->login($username, $password, $role);
+        $tourModel = new Tournament($conn);
+        $tour = $tourModel->checkTourid($id);
 
-        if ($user) {
-
-            session_start();
-            session_regenerate_id(true);
-
-            $_SESSION['role'] = (int)$role;
-            setcookie("name",$username,time()+86400,"/");
-
-            echo json_encode([
-                "status" => "success",
-                "role"   => $_SESSION['role'],
+        if (!$tour){
+             echo json_encode([
+                "status" => "failed",
+                "message"   =>"tournament not exists",
                  
             ]);
             exit;
-        } else {
+        } 
+
+        $newTour = $tourModel->statuschange($id,$status);
+
+        if($newTour){
+            echo json_encode([
+                "status" => "success",
+                "message"   =>"tournament status updated successfully",
+                 
+            ]);
+             exit;
+        }
+   
+         else {
             echo json_encode([
                 "status" => "failed",
-                "message" => "Invalid credentials"
+                "message" => "Invalid details not updated"
             ]);
         }
+  
+   
     } catch (PDOException $e) {
 
         file_put_contents(
             __DIR__ . "/../error.txt",
-            date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL,
+            date("H:i:s Y-m-d : ") . $e->getMessage().$e->getFile().$e->getLine() . PHP_EOL,
             FILE_APPEND
         );
 
@@ -56,3 +63,6 @@
     } finally {
         $conn = null;
     }
+    
+
+  

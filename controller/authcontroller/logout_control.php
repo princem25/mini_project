@@ -1,6 +1,7 @@
 <?php
     session_start();
     session_unset();
+    setcookie("name","",time()-3600,"/");
     session_destroy();
     
     header('Content-Type: application/json');

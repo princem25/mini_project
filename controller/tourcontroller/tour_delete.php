@@ -1,19 +1,13 @@
     <?php
     header('Content-Type: application/json');
 
-    $tourName = trim($_POST['name'] ?? '');
-    $start = trim($_POST['start'] ?? '');
-    $end = $_POST['end'] ?? '';
-    $type = $_POST['type'] ?? '';
-    $status = $_POST['status'] ?? '';
-
-    
-
+    $id = trim($_POST['id'] ?? '');
+     
     require_once "C:/xampp_new/htdocs/mini_pro/config/dbconfig.php";
     require_once "C:/xampp_new/htdocs/mini_pro/model/tournament.php";
 
     try {
-    if($start < $end){
+  
         if ($connected != 1) {
             echo json_encode([
                 "status" => "failed",
@@ -23,23 +17,23 @@
         }
 
         $tourModel = new Tournament($conn);
-        $tour = $tourModel->checkTour($tourName);
+        $tour = $tourModel->checkTourid($id);
 
-        if ($tour){
+        if (!$tour){
              echo json_encode([
-                "status" => "success",
-                "message"   =>"tournament already exists",
+                "status" => "failed",
+                "message"   =>"tournament not exists",
                  
             ]);
             exit;
         } 
 
-        $newTour = $tourModel->registerTour($tourName, $start,$end,$type,$status);
+        $newTour = $tourModel->deleteTour($id);
 
         if($newTour){
             echo json_encode([
                 "status" => "success",
-                "message"   =>"tournament created successfully",
+                "message"   =>"tournament deleted successfully",
                  
             ]);
              exit;
@@ -48,16 +42,11 @@
          else {
             echo json_encode([
                 "status" => "failed",
-                "message" => "Invalid details 1"
+                "message" => "Invalid details not deleted"
             ]);
         }
-    }
-      else{
-        echo json_encode([
-            "status" => "failed",
-            "message"=>"invalid dates"
-        ]);
-    }
+  
+   
     } catch (PDOException $e) {
 
         file_put_contents(

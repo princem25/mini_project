@@ -46,7 +46,7 @@ if(isset($_SESSION['role'])){
                 } else {
                     $("#error").html("");
                      console.log("req sending");
-                    $.post("/mini_pro/controller/login_control.php", {
+                    $.post("/mini_pro/controller/authcontroller/login_control.php", {
                             name,
                             pass,
                             role
@@ -55,8 +55,8 @@ if(isset($_SESSION['role'])){
                               console.log("res come");
                             console.log(response);
                             if (response.status === "success") {
-                                if(response.role == 1) window.location.href = "/mini_pro/view/admin/admin_dash.php";
-                                else window.location.href = "/mini_pro/view/player/player_dash.php";
+                                if(response.role === 1) window.location.href = "/mini_pro/view/admin/admin_dash.php";
+                                else if(response.role === 2) window.location.href = "/mini_pro/view/player/player_dash.php";
                             } else {
                                 $("#error").html(response.message);
                             }
