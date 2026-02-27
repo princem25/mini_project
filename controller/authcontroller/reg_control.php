@@ -28,7 +28,7 @@ try {
 
     $userModel = new User($conn);
 
-    // ✅ check if user exists
+
     $existingUser = $userModel->check($username, $role);
 
     if ($existingUser) {
@@ -54,12 +54,11 @@ try {
         "status" => "failed",
         "message" => "Registration failed"
     ]);
-
 } catch (PDOException $e) {
 
     file_put_contents(
         __DIR__ . "/../error.txt",
-        date("H:i:s Y-m-d : ") . $e->getMessage().$e->getLine() . PHP_EOL,
+        date("H:i:s Y-m-d : ") . $e->getMessage() . $e->getLine() . PHP_EOL,
         FILE_APPEND
     );
 

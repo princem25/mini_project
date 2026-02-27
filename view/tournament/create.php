@@ -52,7 +52,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                 } else {
                     $("#error").html("");
 
-                    $.post("/mini_pro/controller/tourcontrller/tour_control.php", {
+                    $.post("/mini_pro/controller/tourcontroller/tour_control.php", {
                             name,
                             start,
                             end,

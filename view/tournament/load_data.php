@@ -1,48 +1,47 @@
- 
-    <script>
-            $("#load").click(function() {
+<script>
 
-        $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function(response) {
+$("#load").click(function () {
 
-            if (response.status === "success") {
+   
+    $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function (response) {
 
-                let table = `
-                    <table border="1" cellpadding="8">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                        </tr>
+        if (response.status === "success") {
+
+            let table = `
+                <table border="1" cellpadding="8">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+            `;
+
+            response.data.forEach(function (tour) {
+                table += `
+                    <tr>
+                        <td>${tour.tour_id}</td>
+                        <td>${tour.tour_name}</td>
+                        <td>${tour.start_date}</td>
+                        <td>${tour.end_date}</td>
+                        <td>${tour.type}</td>
+                        <td>${tour.status}</td>
+                    </tr>
                 `;
+            });
 
-                response.data.forEach(function(tour) {
-                    table += `
-                        <tr>
-                            <td>${tour.tour_id}</td>
-                            <td>${tour.tour_name}</td>
-                            <td>${tour.start_date}</td>
-                            <td>${tour.end_date}</td>
-                            <td>${tour.type}</td>
-                            <td>${tour.status}</td>
-                        </tr>
-                    `;
-                });
+            table += `</table>`;
 
-                table += `</table>`;
+            $("#data").html(table).show();
 
-                $("#data").html(table);
+        } else {
+            $("#error").html(response.message);
+        }
 
-            } else {
-                $("#error").html(response.message);
-            }
+    }, "json");
 
-        }, "json");
-    });
+});
 
- 
-
-    </script>
- 
+</script>
