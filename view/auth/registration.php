@@ -43,7 +43,6 @@
                         },
                         function(response) {
                           
-                            
                             console.log("SERVER RESPONSE:", response);
                             if (response.status === "exists") {
                                window.location.href = "/mini_pro/view/auth/login.php";
@@ -53,7 +52,7 @@
                                 $("#error").html("Something went wrong");
                             }
 
-                        },"json");
+                        });
                 }
             })
         });

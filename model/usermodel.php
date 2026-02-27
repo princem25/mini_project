@@ -6,7 +6,7 @@ class User
 
     public function __construct($conn)
     {
-
+        
         $this->conn = $conn;
     }
 
@@ -24,10 +24,9 @@ class User
             $stmt->execute([$username, $hash, $roleid]);
 
             return true;
-        } catch (PDOException $e) {
 
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+        } catch (PDOException $e) {
+            return false;
         }
     }
 
@@ -42,10 +41,9 @@ class User
             $stmt->execute([$username, $roleid]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-        } catch (PDOException $e) {
 
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+        } catch (PDOException $e) {
+            return null;
         }
     }
 
@@ -63,10 +61,10 @@ class User
             $stmt->execute([$username, $hash, $roleid]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-        } catch (PDOException $e) {
 
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+        } catch (PDOException $e) {
+            return null;
         }
     }
 }
+?>

@@ -7,7 +7,7 @@
 
     require_once "C:/xampp_new/htdocs/mini_pro/config/dbconfig.php";
     require_once "C:/xampp_new/htdocs/mini_pro/model/usermodel.php";
-    
+
     try {
 
         if ($connected != 1) {
@@ -28,8 +28,7 @@
 
             $_SESSION['role'] = (int)$role;
             setcookie("name", $username, time() + (86400*30), "/");
-            setcookie("role", $role, time() + (86400*30), "/");
-
+ 
             echo json_encode([
                 "status" => "success",
                 "role"  => $_SESSION['role'],

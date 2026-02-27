@@ -1,9 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 
-$username = trim($_POST['name'] ?? '');
-$password = trim($_POST['pass'] ?? '');
-$role     = $_POST['role'] ?? '';
+$username = trim($_POST['name']);
+$password = trim($_POST['pass']);
+$role     = $_POST['role'];
 
 if ($username === '' || $password === '' || $role === '') {
     echo json_encode([
@@ -13,8 +16,9 @@ if ($username === '' || $password === '' || $role === '') {
     exit;
 }
 
-require_once __DIR__ . "/../config/dbconfig.php";
-require_once __DIR__ . "/../model/usermodel.php";
+require_once "C:/xampp_new/htdocs/mini_pro/config/dbconfig.php";
+require_once "C:/xampp_new/htdocs/mini_pro/model/usermodel.php";
+
 
 try {
 
@@ -39,7 +43,7 @@ try {
         exit;
     }
 
-    // ✅ register user
+
     $created = $userModel->register($username, $password, $role);
 
     if ($created) {
