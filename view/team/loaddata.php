@@ -2,7 +2,7 @@
 
 $("#loadteams").click(function () {
 
-console.log("clicked");
+ 
 
    
     $.get("../../controller/teamcontroller/team_data.php", function (response) {

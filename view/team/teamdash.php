@@ -22,7 +22,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
     <a href="../team/createteam.php">Create Team</a><br><br>
     <a href="../team/update.php">Edit Team</a><br><br>
     <a href="../team/delete.php">Delete Team</a><br><br>
-    <a href="../team/status.php">Assign Team</a><br><br>
+    <a href="../team/assign.php">Assign Team</a><br><br>
     <p id="error"></p>
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>

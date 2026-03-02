@@ -19,7 +19,10 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
     <button id="load">Load Tournaments</button><br><br>
    <div id="data"></div><br><br>
      
-        Tournament id : <input type="number" id="id"><br><br>
+        select Tournaments :
+    <select id="tourselect">
+        <option value="">-- Select Tournament --</option>
+    </select><br><br>
        Tournament Status : <select id="status">
          
         <option value="Upcoming">Upcoming</option>
@@ -27,7 +30,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
         <option value="completed">completed</option>
     </select><br><br>
         
-        <p>notice : keep id same as shown in load data</p>
+  
  <p id="error"></p>
     <p id="success"></p>
         <button id="btn">update</button>
@@ -40,7 +43,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
       $(document).ready(function() {
 
     $("#btn").click(function() {
-        var id = $("#id").val();
+        var id = $("#tourselect").val();
         var status = $("#status").val();
         
 
@@ -56,6 +59,8 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                 function(response) {
                     if (response.status === "success") {
                         $("#success").html(response.message);
+                        
+                           loadTours();
                     } else {
                         $("#error").html(response.message);
                     }
@@ -67,6 +72,39 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
      
 });
 </script>
+
+
+    <script>
+      
+
+            // Load teams into dropdown
+            function loadTours() {
+               
+                $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function(response) {
+
+                    if (response.status === "success") {
+
+                        let options = '<option value="">-- Select Tour --</option>';
+
+                        response.data.forEach(function(tour) {
+                            options += `<option value="${tour.tour_id}">
+                                    ${tour.tour_name}
+                                </option>`;
+                        });
+
+                        $("#tourselect").html(options);
+                    }
+
+                }, "json");
+            }
+
+
+            loadTours();
+
+      
+    </script>
+
+ 
 <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
 </body>
 

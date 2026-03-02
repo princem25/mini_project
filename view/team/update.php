@@ -15,15 +15,21 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
     <h2>welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) ?></h2>
 
     <a href="../admin/admin_dash.php">Admin dashboard</a><br> <br>
-    <a href="../Team/teamdash.php">Team dashboard</a><br><br><br>
-    <button id="loadteams   ">Load Teams</button><br><br>
+    <a href="../team/teamdash.php">team dashboard</a><br><br><br>
+    <button id="loadteams">Load Teams</button><br><br>
     <div id="datateam"></div><br><br>
 
-    Team Name : <input type="text" id="name"><br><br>
- 
+    Select Team:
+    <select id="teamSelect">
+        <option value="">-- Select Team --</option>
+    </select><br><br>
+
+    team name : <input type="name" id="name"><br><br>
+
+
     <p id="error"></p>
     <p id="success"></p>
-    <button id="btn">submit</button>
+    <button id="btn">update</button>
     <br><br>
 
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
@@ -33,22 +39,27 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
         $(document).ready(function() {
 
             $("#btn").click(function() {
+                var id = $("#teamSelect").val();
                 var name = $("#name").val();
-              
 
-                if (name === "") {
+
+                if (id == "", name == "") {
                     $("#error").html("all fields are required");
                 } else {
                     $("#error").html("");
-                    console.log("send");
-                    
-                    $.post("/mini_pro/controller/teamcontroller/regteam.php", {
+                    console.log(id);
+
+
+
+                    $.post("/mini_pro/controller/teamcontroller/updateteam.php", {
+                            id,
                             name
                         },
                         function(response) {
-                               console.log("return");
+
                             if (response.status === "success") {
                                 $("#success").html(response.message);
+                                 loadTeams();
                             } else {
                                 $("#error").html(response.message);
                             }
@@ -58,10 +69,34 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                 }
             });
 
-            // LOAD BUTTON
         });
-        </script>
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/loaddata.php') ?>
+    </script>
+
+    <script>
+        function loadTeams() {
+            $.get("/mini_pro/controller/teamcontroller/team_data.php", function(response) {
+
+                if (response.status === "success") {
+
+                    let options = '<option value="">-- Select Team --</option>';
+
+                    response.data.forEach(function(team) {
+                        options += `<option value="${team.team_id}">
+                                    ${team.team_name}
+                                </option>`;
+                    });
+
+                    $("#teamSelect").html(options);
+                }
+
+            }, "json");
+        }
+
+
+        loadTeams();
+    </script>
+
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/loaddata.php') ?>
 </body>
 
 </html>

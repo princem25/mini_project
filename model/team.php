@@ -108,7 +108,7 @@ class Team
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT tour_id FROM teams WHERE team_id = ?"
+                "SELECT team_id FROM teams WHERE team_id = ?"
             );
 
             $stmt->execute([$id]);

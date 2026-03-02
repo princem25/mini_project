@@ -1,6 +1,6 @@
 <script>
 
-$("#load").click(function () {
+$("#load").click(function() {
 
    
     $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function (response) {

@@ -15,51 +15,86 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
     <h2>welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) ?></h2>
 
     <a href="../admin/admin_dash.php">Admin dashboard</a><br> <br>
-  <a href="../tournament/tour_dash.php">tournament dashboard</a><br><br><br>
+    <a href="../tournament/tour_dash.php">tournament dashboard</a><br><br><br>
     <button id="load">Load Tournaments</button><br><br>
-   <div id="data"></div><br><br>
-     
-        Tournament id : <input type="number" id="id"><br><br>
-        
-        <p>notice : keep id same as shown in load data</p>
- <p id="error"></p>
+    <div id="data"></div><br><br>
+    select Tournaments :
+    <select id="tourselect">
+        <option value="">-- Select Tournament --</option>
+    </select>
+
+
+
+    <p id="error"></p>
     <p id="success"></p>
-        <button id="btn">delete</button>
-     <br><br>
-   
+    <button id="btn">delete</button>
+    <br><br>
+
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
 
-    
-     <script>
-      $(document).ready(function() {
 
-    $("#btn").click(function() {
-        var id = $("#id").val();
-        
+    <script>
+        $(document).ready(function() {
 
-        if (id == "") {
-            $("#error").html("all fields are required");
-        } else {
-            $("#error").html("");
+            $("#btn").click(function() {
+                var id = $("#tourselect").val();
 
-            $.post("/mini_pro/controller/tourcontroller/tour_delete.php", {
-                    id 
-                },
-                function(response) {
+
+                if (id == "") {
+                    $("#error").html("all fields are required");
+                } else {
+                    $("#error").html("");
+
+                    $.post("/mini_pro/controller/tourcontroller/tour_delete.php", {
+                            id
+                        },
+                        function(response) {
+                            if (response.status === "success") {
+                                $("#success").html(response.message);
+                                
+                                 loadTours();
+                            } else {
+                                $("#error").html(response.message);
+                            }
+                        },
+                        "json"
+                    );
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+      
+
+            // Load teams into dropdown
+            function loadTours() {
+               
+                $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function(response) {
+
                     if (response.status === "success") {
-                        $("#success").html(response.message);
-                    } else {
-                        $("#error").html(response.message);
+
+                        let options = '<option value="">-- Select Tour --</option>';
+
+                        response.data.forEach(function(tour) {
+                            options += `<option value="${tour.tour_id}">
+                                    ${tour.tour_name}
+                                </option>`;
+                        });
+
+                        $("#tourselect").html(options);
                     }
-                },
-                "json"
-            );
-        }
-    }); 
-     
-});
-</script>
-<?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
+
+                }, "json");
+            }
+
+
+            loadTours();
+
+      
+    </script>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
 </body>
 
 </html>

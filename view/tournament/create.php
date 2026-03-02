@@ -62,6 +62,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                         function(response) {
                             if (response.status === "success") {
                                 $("#success").html(response.message);
+
                             } else {
                                 $("#error").html(response.message);
                             }
@@ -73,8 +74,8 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 
             // LOAD BUTTON
         });
-        </script>
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
+    </script>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
 </body>
 
 </html>

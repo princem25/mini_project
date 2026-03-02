@@ -15,69 +15,100 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
     <h2>welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) ?></h2>
 
     <a href="../admin/admin_dash.php">Admin dashboard</a><br><br>
-     <a href="../tournament/tour_dash.php">tournament dashboard</a><br><br><br>
+    <a href="../tournament/tour_dash.php">tournament dashboard</a><br><br><br>
     <button id="load">Load Tournaments</button><br><br>
-   <div id="data"></div><br><br>
-     
-        Tournament id : <input type="number" id="id"><br><br>
-        Tournament name : <input type="text" id="name"><br><br>
-        Tournament start : <input type="date" id="start_date"><br><br>
-        Tournament end : <input type="date" id="end_date"><br><br>
-        Tournament Type : <select id="type">
-            <option value="knockout">knockout</option>
-            <option value="league">league</option>
-        </select><br><br>
-        Tournament Status : <select id="status">
-            <option value="upcoming">upcoming</option>
-        </select><br><br>
-        <p>notice : keep id same as shown in load data</p>
- <p id="error"></p>
+    <div id="data"></div><br><br>
+
+    select Tournaments :
+    <select id="tourselect">
+        <option value="">-- Select Tournament --</option>
+    </select><br><br>
+    Tournament name : <input type="text" id="name"><br><br>
+    Tournament start : <input type="date" id="start_date"><br><br>
+    Tournament end : <input type="date" id="end_date"><br><br>
+    Tournament Type : <select id="type">
+        <option value="knockout">knockout</option>
+        <option value="league">league</option>
+    </select><br><br>
+    Tournament Status : <select id="status">
+        <option value="upcoming">upcoming</option>
+    </select><br><br>
+ 
+    <p id="error"></p>
     <p id="success"></p>
-        <button id="btn">submit</button>
-     <br><br>
-   
+    <button id="btn">submit</button>
+    <br><br>
+
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
 
-    
-     <script>
-      $(document).ready(function() {
 
-    $("#btn").click(function() {
-        var id = $("#id").val();
-        var name = $("#name").val();
-        var start = $("#start_date").val();
-        var end = $("#end_date").val();
-        var type = $("#type").val();
-        var status = $("#status").val();
+    <script>
+        $(document).ready(function() {
 
-        if (id == "" || name === "" || start === "" || end === "" || type === "" || status === "") {
-            $("#error").html("all fields are required");
-        } else {
-            $("#error").html("");
+            $("#btn").click(function() {
+                var id = $("#tourselect").val();
+                var name = $("#name").val();
+                var start = $("#start_date").val();
+                var end = $("#end_date").val();
+                var type = $("#type").val();
+                var status = $("#status").val();
 
-            $.post("/mini_pro/controller/tourcontroller/tour_update.php", {
-                    id,
-                    name,
-                    start,
-                    end,
-                    type,
-                    status
-                },
-                function(response) {
-                    if (response.status === "success") {
-                        $("#success").html(response.message);
-                    } else {
-                        $("#error").html(response.message);
-                    }
-                },
-                "json"
-            );
+                if (id == "" || name === "" || start === "" || end === "" || type === "" || status === "") {
+                    $("#error").html("all fields are required");
+                } else {
+                    $("#error").html("");
+
+                    $.post("/mini_pro/controller/tourcontroller/tour_update.php", {
+                            id,
+                            name,
+                            start,
+                            end,
+                            type,
+                            status
+                        },
+                        function(response) {
+                            if (response.status === "success") {
+                                $("#success").html(response.message);
+                                
+                                   loadTours();
+                            } else {
+                                $("#error").html(response.message);
+                            }
+                        },
+                        "json"
+                    );
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        // Load teams into dropdown
+        function loadTours() {
+
+            $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function(response) {
+
+                if (response.status === "success") {
+
+                    let options = '<option value="">-- Select Tour --</option>';
+
+                    response.data.forEach(function(tour) {
+                        options += `<option value="${tour.tour_id}">
+                                    ${tour.tour_name}
+                                </option>`;
+                    });
+
+                    $("#tourselect").html(options);
+                }
+
+            }, "json");
         }
-    }); 
-     
-});
-</script>
-<?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
+
+
+        loadTours();
+    </script>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
 </body>
 
 </html>
