@@ -16,14 +16,17 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 
     <a href="../admin/admin_dash.php">Admin dashboard</a><br><br>
     <button id="load">Load Tournaments</button><br><br>
-   <div id="data"></div><br> 
-    <a href="../tournament/create.php">Create Tournament</a><br><br>
-    <a href="../tournament/update.php">Edit Tournament</a><br><br>
-    <a href="../tournament/delete.php">Delete Tournament</a><br><br>
-    <a href="../tournament/status.php">change status of Tournament</a><br><br>
+    <div id="data"></div><br>
+    <button id="loadteams">view Teams</button><br><br>
+  <div id="datateam"></div><br>
+    <a href="../team/createteam.php">Create Team</a><br><br>
+    <a href="../team/update.php">Edit Team</a><br><br>
+    <a href="../team/delete.php">Delete Team</a><br><br>
+    <a href="../team/status.php">Assign Team</a><br><br>
     <p id="error"></p>
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
+    <?php require_once('loaddata.php') ?>
 </body>
 
 </html>
