@@ -16,7 +16,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 
     <a href="../admin/admin_dash.php">Admin dashboard</a><br> <br>
     <a href="../Team/teamdash.php">Team dashboard</a><br><br><br>
-    <button id="loadteams   ">Load Teams</button><br><br>
+    <button id="loadteams">Load Teams</button><br><br>
     <div id="datateam"></div><br><br>
 
     Team Name : <input type="text" id="name"><br><br>

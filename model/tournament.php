@@ -66,7 +66,7 @@ class Tournament
     {
         try {
             $stmt = $this->conn->query(
-                "SELECT * FROM tournaments ORDER BY start_date ASC"
+                "SELECT * FROM tournaments  ORDER BY start_date ASC"
             );
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -139,4 +139,7 @@ class Tournament
             echo "error : " . $e->getMessage();
         }
     }
+
+    
+ 
 }

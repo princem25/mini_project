@@ -1,13 +1,13 @@
-<script>
+    <script>
 
-$("#loadteams").click(function () {
+$("#loadplayer").click(function () {
 
 console.log("btn clicked");
     
-    $.get("../../controller/teamcontroller/team_data.php", function (response) {
+    $.get("../../controller/playercontroller/player_fresh.php", function (response) {
 
   
-console.log("resp send");
+console.log("resp send");   
 
         if (response.status === "success") {
 
@@ -16,18 +16,16 @@ console.log("resp send");
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Tour_id</th>
-                        <th>verified</th>
+                        <th>Team_id</th>
                     </tr>
             `;
 
-            response.data.forEach(function (team) {
+            response.data.forEach(function (player) {
                 table += `
                     <tr>
-                        <td>${team.team_id}</td>
-                        <td>${team.team_name}</td>
-                        <td>${team.tour_id}</td>
-                        <td>${team.verified}</td>
+                        <td>${player.user_id}</td>
+                        <td>${player.name}</td>
+                        <td>${player.team_id}</td>
                          
                     </tr>
                 `;
@@ -35,7 +33,7 @@ console.log("resp send");
 
             table += `</table>`;
 
-            $("#datateam").html(table).show();
+            $("#dataplayer").html(table).show();
 
         } else {
             $("#error").html(response.message);

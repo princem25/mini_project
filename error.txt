@@ -37,3 +37,25 @@
 06:27:54 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
 06:28:19 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
 06:29:05 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
+07:42:08 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in field list is ambiguous
+07:42:15 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in field list is ambiguous
+07:42:15 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in field list is ambiguous
+07:42:15 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in field list is ambiguous
+07:42:26 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in field list is ambiguous
+07:44:48 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:49 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:50 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:50 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:50 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:50 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:51 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:44:51 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+07:54:13 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:17 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:17 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:17 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:18 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:18 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:18 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:19 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+07:54:19 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'

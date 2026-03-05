@@ -120,6 +120,42 @@ class Team
         }
     }
 
+    public function teamWithoutTour(){
+         try {
+            $stmt = $this->conn->query(
+                "SELECT * FROM teams where tour_id is null and  verified = 1"
+            );
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+
+            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
+            echo "error : " . $e->getMessage();
+        }
+    }
+
+    public function teamAssignTour($teamid,$tourid){
+            try {
+             $stmt = $this->conn->prepare("
+            UPDATE teams 
+            SET tour_id = ?
+            WHERE team_id = ?
+        ");
+
+        $stmt->execute([$tourid, $teamid]);
+
+        return true;
+
+    } catch (PDOException $e) {
+        file_put_contents(
+            __DIR__ . "/../error.txt",
+            date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL,
+            FILE_APPEND
+        );
+
     
-    
+    }
+}
+
+ 
 }

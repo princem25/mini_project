@@ -59,7 +59,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 
                             if (response.status === "success") {
                                 $("#success").html(response.message);
-                                 loadTeams();
+                                loadTeams();
                             } else {
                                 $("#error").html(response.message);
                             }
@@ -71,30 +71,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 
         });
     </script>
-
-    <script>
-        function loadTeams() {
-            $.get("/mini_pro/controller/teamcontroller/team_data.php", function(response) {
-
-                if (response.status === "success") {
-
-                    let options = '<option value="">-- Select Team --</option>';
-
-                    response.data.forEach(function(team) {
-                        options += `<option value="${team.team_id}">
-                                    ${team.team_name}
-                                </option>`;
-                    });
-
-                    $("#teamSelect").html(options);
-                }
-
-            }, "json");
-        }
-
-
-        loadTeams();
-    </script>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/loadteam.php') ?>
 
     <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/loaddata.php') ?>
 </body>

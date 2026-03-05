@@ -16,6 +16,7 @@ $("#load").click(function() {
                         <th>End Date</th>
                         <th>Type</th>
                         <th>Status</th>
+                        <th>verified</th>
                     </tr>
             `;
 
@@ -28,6 +29,7 @@ $("#load").click(function() {
                         <td>${tour.end_date}</td>
                         <td>${tour.type}</td>
                         <td>${tour.status}</td>
+                        <td>${tour.verified}</td>
                     </tr>
                 `;
             });

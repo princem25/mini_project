@@ -48,6 +48,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                 var status = $("#status").val();
 
                 if (name === "" || start === "" || end === "" || type === "" || status === "") {
+                    $("#success").html("");
                     $("#error").html("all fields are required");
                 } else {
                     $("#error").html("");
@@ -61,6 +62,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                         },
                         function(response) {
                             if (response.status === "success") {
+                                  $("#error").html("");
                                 $("#success").html(response.message);
 
                             } else {
