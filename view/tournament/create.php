@@ -1,5 +1,6 @@
 <?php
-require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
+require_once __DIR__ . '/../../config/auth_check.php';
+requireAdmin();
 ?>
 
 <!DOCTYPE html>
@@ -8,34 +9,57 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <title>Create Tournament</title>
 </head>
 
 <body>
-    <h2>welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) ?></h2>
+    <div class="wrapper">
+        <div class="breadcrumb">
+            <a href="../admin/dashboard.php">Admin Dashboard</a>
+            <a href="../tournament/dashboard.php">Tournament Dashboard</a>
+        </div>
 
-    <a href="../admin/admin_dash.php">Admin dashboard</a><br> <br>
-    <a href="../tournament/tour_dash.php">tournament dashboard</a><br><br><br>
-    <button id="load">Load Tournaments</button><br><br>
-    <div id="data"></div><br><br>
+        <h2>Create Tournament</h2>
+        <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
 
-    Tournament Name : <input type="text" id="name"><br><br>
-    Tournament start : <input type="date" id="start_date"><br><br>
-    Tournament end : <input type="date" id="end_date"><br><br>
-    Tournament Type : <select id="type">
-        <option value="knockout">knockout</option>
-        <option value="league">league</option>
-    </select><br><br>
-    Tournament Status : <select id="status">
-        <option value="upcoming">upcoming</option>
-    </select><br><br>
-    <p id="error"></p>
-    <p id="success"></p>
-    <button id="btn">submit</button>
-    <br><br>
+        <button id="load">Load Tournaments</button>
+        <div id="data"></div>
 
-    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+        <div class="section">
+            <div class="form-group">
+                <label>Tournament Name</label>
+                <input type="text" id="name">
+            </div>
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" id="start_date">
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <input type="date" id="end_date">
+            </div>
+            <div class="form-group">
+                <label>Tournament Type</label>
+                <select id="type">
+                    <option value="knockout">Knockout</option>
+                    <option value="league">League</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tournament Status</label>
+                <select id="status">
+                    <option value="upcoming">Upcoming</option>
+                </select>
+            </div>
+            <p id="error"></p>
+            <p id="success"></p>
+            <button id="btn">Submit</button>
+        </div>
 
+        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+    </div>
 
     <script>
         $(document).ready(function() {
@@ -46,14 +70,16 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                 var end = $("#end_date").val();
                 var type = $("#type").val();
                 var status = $("#status").val();
-
-                if (name === "" || start === "" || end === "" || type === "" || status === "") {
-                    $("#success").html("");
+ 
+                if (name == "" || start == "" || end == "" || type == "" || status == "") {
+ 
                     $("#error").html("all fields are required");
+                    $("#success").html("");
                 } else {
                     $("#error").html("");
+                    $("#success").html("");
 
-                    $.post("/mini_pro/controller/tourcontroller/tour_control.php", {
+                    $.post("/mini_pro/controller/tournament/create.php", {
                             name,
                             start,
                             end,
@@ -62,11 +88,11 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
                         },
                         function(response) {
                             if (response.status === "success") {
-                                  $("#error").html("");
                                 $("#success").html(response.message);
-
+                                $("#error").html("");
                             } else {
                                 $("#error").html(response.message);
+                                $("#success").html("");
                             }
                         },
                         "json"
@@ -77,7 +103,7 @@ require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
             // LOAD BUTTON
         });
     </script>
-    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load_data.php') ?>
+    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load.php') ?>
 </body>
 
 </html>

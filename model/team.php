@@ -6,10 +6,17 @@ class Team
 
     public function __construct($conn)
     {
-
         $this->conn = $conn;
     }
 
+    private function logError($e)
+    {
+        file_put_contents(
+            __DIR__ . "/../error.txt",
+            date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL,
+            FILE_APPEND
+        );
+    }
 
     public function registerTeam($name)
     {
@@ -18,13 +25,11 @@ class Team
                 "INSERT INTO teams (team_name)
                  VALUES (?)"
             );
-
             $stmt->execute([$name]);
             return true;
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
 
@@ -34,16 +39,13 @@ class Team
             $stmt = $this->conn->prepare(
                 "SELECT team_id FROM teams WHERE team_name = ?"
             );
-
             $stmt->execute([$name]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
-
 
     public function deleteTeam($id)
     {
@@ -51,14 +53,11 @@ class Team
             $stmt = $this->conn->prepare(
                 "DELETE FROM teams WHERE team_id = ?"
             );
-
             $stmt->execute([$id]);
-            return $stmt->rowCount();   // number of rows deleted
-
+            return $stmt->rowCount();
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
 
@@ -66,43 +65,28 @@ class Team
     {
         try {
             $stmt = $this->conn->query(
-                "SELECT * FROM teams"
+                "SELECT team_id,team_name,COALESCE(tour_id, 'not part of any tournament') as tour_id,verified FROM teams"
             );
-
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
 
     public function updateTeam($id, $name)
     {
         try {
-            $this->conn->beginTransaction();
-
             $stmt = $this->conn->prepare(
-                "DELETE FROM teams WHERE team_id = ?"
+                "UPDATE teams SET team_name = ? WHERE team_id = ?"
             );
-            $stmt->execute([$id]);
-
-            $stmt = $this->conn->prepare(
-                "INSERT INTO teams
-                 (team_id, team_name)
-                 VALUES (?, ?)"
-            );
-            $stmt->execute([$id, $name]);
-
-            $this->conn->commit();
-            return true;
+            $stmt->execute([$name, $id]);
+            return $stmt->rowCount();
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
-
 
     public function checkTeamid($id)
     {
@@ -110,52 +94,40 @@ class Team
             $stmt = $this->conn->prepare(
                 "SELECT team_id FROM teams WHERE team_id = ?"
             );
-
             $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
 
-    public function teamWithoutTour(){
-         try {
+    public function teamWithoutTour()
+    {
+        try {
             $stmt = $this->conn->query(
-                "SELECT * FROM teams where tour_id is null and  verified = 1"
+                "SELECT * FROM teams where tour_id is null and verified = 1"
             );
-
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-
-            file_put_contents(__DIR__ . "/../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
-            echo "error : " . $e->getMessage();
+            $this->logError($e);
+            return false;
         }
     }
 
-    public function teamAssignTour($teamid,$tourid){
-            try {
-             $stmt = $this->conn->prepare("
-            UPDATE teams 
-            SET tour_id = ?
-            WHERE team_id = ?
-        ");
-
-        $stmt->execute([$tourid, $teamid]);
-
-        return true;
-
-    } catch (PDOException $e) {
-        file_put_contents(
-            __DIR__ . "/../error.txt",
-            date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL,
-            FILE_APPEND
-        );
-
-    
+    public function teamAssignTour($teamid, $tourid)
+    {
+        try {
+            $stmt = $this->conn->prepare("
+                UPDATE teams 
+                SET tour_id = ?
+                WHERE team_id = ?
+            ");
+            $stmt->execute([$tourid, $teamid]);
+            return true;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
     }
-}
-
- 
 }

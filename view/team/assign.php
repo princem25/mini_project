@@ -1,5 +1,6 @@
         <?php
-        require_once('C:/xampp_new/htdocs/mini_pro/view/admin/sessionAdmin.php');
+        require_once __DIR__ . '/../../config/auth_check.php';
+        requireAdmin();
         ?>
 
         <!DOCTYPE html>
@@ -8,36 +9,46 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <link rel="stylesheet" href="/mini_pro/assets/style.css">
+            <title>Assign Team</title>
         </head>
 
         <body>
-            <h2>welcome , <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']) ?></h2>
+            <div class="wrapper">
+                <div class="breadcrumb">
+                    <a href="../admin/dashboard.php">Admin Dashboard</a>
+                    <a href="../team/dashboard.php">Team Dashboard</a>
+                </div>
 
-            <a href="../admin/admin_dash.php">Admin dashboard</a><br> <br>
-            <a href="../team/teamdash.php">team dashboard</a><br><br><br>
-            <button id="loadteams">Load Teams</button><br><br>
-            <div id="datateam"></div><br><br>
+                <h2>Assign Team to Tournament</h2>
+                <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
 
-            Select Tour:
-            <select id="tourselect">
-                <option value="">-- Select Team --</option>
-            </select>
+                <button id="loadteams">Load Teams</button>
+                <div id="datateam"></div>
 
-            Select Team:
-            <select id="teamSelect">
-                <option value="">-- Select Team --</option>
-            </select>
+                <div class="section">
+                    <div class="form-group">
+                        <label>Select Tournament</label>
+                        <select id="tourselect">
+                            <option value="">-- Select Tournament --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Team</label>
+                        <select id="teamSelect">
+                            <option value="">-- Select Team --</option>
+                        </select>
+                    </div>
 
+                    <p id="error"></p>
+                    <p id="success"></p>
+                    <p class="note">Note: If a team is already part of any tournament, it won't appear in the dropdown.</p>
+                    <button id="btn">Assign</button>
+                </div>
 
-            <p id="error"></p>
-            <p id="success"></p>
-            <p>note : if team is already part of any tournament then not shown in dropdown</p>
-            <button id="btn">Assign</button>
-            <br><br>
-
-            <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
-
+                <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+            </div>
 
             <script>
                 $(document).ready(function() {
@@ -51,24 +62,25 @@
 
 
                         if (tourid == "" || teamid == "") {
-                            $("#success").html("");
                             $("#error").html("all fields are required");
+                            $("#success").html("");
                         } else {
                             $("#error").html("");
-    
-                            $.post("/mini_pro/controller/teamcontroller/team_assign_tour.php", {
+                            $("#success").html("");
+        
+                            $.post("/mini_pro/controller/team/assign.php", {
                                     tourid,
                                     teamid
                                 },
                                 function(response) {
-                                    
-                        console.log(response);
-    
+                                    console.log(response);
                                     if (response.status === "success") {
                                         $("#success").html(response.message);
+                                        $("#error").html("");
                                         loadTeams();
                                     } else {
                                         $("#error").html(response.message);
+                                        $("#success").html("");
                                     }
                                 },
                                 "json"
@@ -84,7 +96,7 @@
                 // Load teams into dropdown
                 function loadTours() {
 
-                    $.get("/mini_pro/controller/tourcontroller/tourdata_control.php", function(response) {
+                    $.get("/mini_pro/controller/tournament/list.php", function(response) {
 
                         if (response.status === "success") {
 
@@ -110,7 +122,7 @@
             <script>
                 // Load teams into dropdown
                 function loadTeams() {
-                    $.get("/mini_pro/controller/teamcontroller/team_tour_data.php", function(response) {
+                    $.get("/mini_pro/controller/team/available.php", function(response) {
 
                         if (response.status === "success") {
 
@@ -135,7 +147,7 @@
 
 
 
-            <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/loaddata.php') ?>
+            <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/load.php') ?>
 
         </body>
 

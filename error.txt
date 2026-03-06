@@ -59,3 +59,144 @@
 07:54:18 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
 07:54:19 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
 07:54:19 2026-03-05 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+09:48:07 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'null' at line 2
+09:48:37 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'null' at line 2
+09:51:32 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'team_id' in where clause is ambiguous
+10:13:51 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:13:52 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:13:52 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:13:52 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:13:59 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:14:36 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'p.team_id = t.team_id 
+                    where u.role_id = 2 and p.team_id...' at line 3
+10:15:19 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.name' in 'field list'
+10:15:20 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.name' in 'field list'
+10:19:58 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:20:19 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:20:39 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+10:21:46 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:23:23 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:23:48 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:23:50 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:23:50 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:27:42 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:27:43 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:30:13 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:30:24 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:30:25 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:30:25 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:30:37 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:32:34 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:44 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:45 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:45 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:45 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:46 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:46 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:46 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:46 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:47 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:47 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:47 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:47 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:48 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:48 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:48 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:52 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:53 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:53 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:53 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:57 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:58 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:58 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:58 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:58 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:59 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:33:59 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM users as u
+                    left join players as p
+                ...' at line 1
+10:35:21 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION tournament.COALESC does not exist
+10:35:23 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION tournament.COALESC does not exist
+10:35:24 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION tournament.COALESC does not exist
+10:35:24 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION tournament.COALESC does not exist
+10:35:24 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION tournament.COALESC does not exist
+10:37:56 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT u.user_id as id,u.name as nm,COALESCE(team_id, 'not part of any team')...' at line 5
+10:38:00 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT u.user_id as id,u.name as nm,COALESCE(team_id, 'not part of any team')...' at line 5
+10:38:05 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT u.user_id as id,u.name as nm,COALESCE(team_id, 'not part of any team')...' at line 5
+10:38:06 2026-03-06 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT u.user_id as id,u.name as nm,COALESCE(team_id, 'not part of any team')...' at line 5
+10:40:04 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't' in 'on clause'
+10:40:07 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't' in 'on clause'
+10:40:25 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_name' in 'field list'
+10:40:26 2026-03-06 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.team_name' in 'field list'
+10:45:51 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:46:07 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+10:54:51 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'
+11:02:44 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11' for key 'user_id'
+11:02:46 2026-03-06 : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '9' for key 'user_id'

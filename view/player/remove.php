@@ -11,7 +11,7 @@ requireAdmin();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/mini_pro/assets/style.css">
-    <title>Update Team</title>
+    <title>Remove Player from Team</title>
 </head>
 
 <body>
@@ -21,26 +21,22 @@ requireAdmin();
             <a href="../team/dashboard.php">Team Dashboard</a>
         </div>
 
-        <h2>Update Team</h2>
+        <h2>Remove Player from Team</h2>
         <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
 
-        <button id="loadteams">Load Teams</button>
-        <div id="datateam"></div>
+        <button id="loadplayer">Load Players</button>
+        <div id="dataplayer"></div>
 
         <div class="section">
             <div class="form-group">
-                <label>Select Team</label>
-                <select id="teamSelect">
-                    <option value="">-- Select Team --</option>
+                <label>Select Player</label>
+                <select id="playerSelect">
+                    <option value="">-- Select player --</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label>Team Name</label>
-                <input type="name" id="name">
             </div>
             <p id="error"></p>
             <p id="success"></p>
-            <button id="btn">Update</button>
+            <button id="btn">Delete</button>
         </div>
 
         <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
@@ -50,33 +46,28 @@ requireAdmin();
         $(document).ready(function() {
 
             $("#btn").click(function() {
-                var id = $("#teamSelect").val();
-                var name = $("#name").val();
+                var playerid = $("#playerSelect").val();
 
 
-                if (id == "" || name == "") {
+                if (playerid == "") {
                     $("#error").html("all fields are required");
                     $("#success").html("");
                 } else {
                     $("#error").html("");
                     $("#success").html("");
-                    console.log(id);
 
-
-
-                    $.post("/mini_pro/controller/team/update.php", {
-                            id,
-                            name
+                    $.post("/mini_pro/controller/player/remove.php", {
+                            playerid
                         },
                         function(response) {
 
                             if (response.status === "success") {
+                                 $("#error").html("");
                                 $("#success").html(response.message);
-                                $("#error").html("");
-                                loadTeams();
+                                loadPlayer();
                             } else {
-                                $("#error").html(response.message);
                                 $("#success").html("");
+                                $("#error").html(response.message);
                             }
                         },
                         "json"
@@ -86,9 +77,38 @@ requireAdmin();
 
         });
     </script>
-    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/load_select.php') ?>
 
-    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/load.php') ?>
+        
+<script>
+ 
+
+    // Load teams into dropdown
+    function loadPlayer() {
+        $.get("/mini_pro/controller/player/assigned.php", function (response) {
+
+            if (response.status === "success") {
+
+                let options = '<option value="">-- Select player --</option>';
+
+                response.data.forEach(function(player) {
+                    options += `<option value="${player.player_id}">
+                                ${player.player_id}  ${player.name} , ${player.team_name}
+                                </option>`;
+                });
+
+                $("#playerSelect").html(options);
+            }
+
+        }, "json");
+    }
+
+    
+    loadPlayer();
+
+ 
+</script>
+
+        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/player/load.php') ?>
 </body>
 
 </html>

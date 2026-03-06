@@ -1,0 +1,42 @@
+<?php
+require_once __DIR__ . '/../../config/auth_check.php';
+requireAdmin();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <title>Tournament Dashboard</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="breadcrumb">
+            <a href="../admin/dashboard.php">Admin Dashboard</a>
+        </div>
+
+        <h2>Tournament Dashboard</h2>
+        <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
+
+        <button id="load">Load Tournaments</button>
+        <div id="data"></div>
+
+        <div class="nav-links">
+            <a href="../tournament/create.php">Create Tournament</a>
+            <a href="../tournament/update.php">Edit Tournament</a>
+            <a href="../tournament/delete.php">Delete Tournament</a>
+            <a href="../tournament/status.php">Change Status</a>
+        </div>
+
+        <p id="error"></p>
+        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load.php') ?>
+    </div>
+</body>
+
+</html>
