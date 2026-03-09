@@ -24,9 +24,9 @@ requirePlayer();
 
         <p id="error"></p>
 
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
 
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
     </div>
 </body>
 

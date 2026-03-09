@@ -29,13 +29,13 @@
 
                 <div class="section">
                     <div class="form-group">
-                        <label>Select Tournament</label>
+                        <label>Select Verified Tournament</label>
                         <select id="tourselect">
                             <option value="">-- Select Tournament --</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Select Team</label>
+                        <label>Select verified Team</label>
                         <select id="teamSelect">
                             <option value="">-- Select Team --</option>
                         </select>
@@ -47,7 +47,7 @@
                     <button id="btn">Assign</button>
                 </div>
 
-                <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+                <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
             </div>
 
             <script>
@@ -92,31 +92,6 @@
             </script>
 
 
-            <script>
-                // Load teams into dropdown
-                function loadTours() {
-
-                    $.get("/mini_pro/controller/tournament/list.php", function(response) {
-
-                        if (response.status === "success") {
-
-                            let options = '<option value="">-- Select Tour --</option>';
-
-                            response.data.forEach(function(tour) {
-                                options += `<option value="${tour.tour_id}">
-                                        ${tour.tour_name}
-                                    </option>`;
-                            });
-
-                            $("#tourselect").html(options);
-                        }
-
-                    }, "json");
-                }
-
-
-                loadTours();
-            </script>
 
 
             <script>
@@ -147,7 +122,8 @@
 
 
 
-            <?php require_once('C:/xampp_new/htdocs/mini_pro/view/team/load.php') ?>
+            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
+            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/verifiedtour.php') ?>
 
         </body>
 

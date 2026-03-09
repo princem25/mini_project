@@ -119,4 +119,19 @@ class Tournament
             return false;
         }
     }
+
+     public function getTourverified()
+    {
+        try {
+            $stmt = $this->conn->query(
+                "SELECT * FROM tournaments where verified = 1"
+            );
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+      
+ 
 }

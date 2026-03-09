@@ -115,6 +115,19 @@ class Team
         }
     }
 
+       public function teamWithTour()
+    {
+        try {
+            $stmt = $this->conn->query(
+                "SELECT * FROM teams where verified = 1"
+            );
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+
     public function teamAssignTour($teamid, $tourid)
     {
         try {

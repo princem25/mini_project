@@ -24,10 +24,11 @@ requireAdmin();
             <a href="../tournament/dashboard.php">Tournament Management</a>
             <a href="../team/dashboard.php">Team Management</a>
             <a href="../player/dashboard.php">Player Management</a>
+            <a href="../match/dashboard.php">Match Management</a>
         </div>
 
         <p id="error"></p>
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
     </div>
 </body>
 

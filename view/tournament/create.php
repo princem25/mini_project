@@ -58,7 +58,7 @@ requireAdmin();
             <button id="btn">Submit</button>
         </div>
 
-        <?php require_once('C:/xampp_new/htdocs/mini_pro/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
     </div>
 
     <script>
@@ -103,7 +103,7 @@ requireAdmin();
             // LOAD BUTTON
         });
     </script>
-    <?php require_once('C:/xampp_new/htdocs/mini_pro/view/tournament/load.php') ?>
+    <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
 </body>
 
 </html>
