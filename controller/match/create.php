@@ -7,6 +7,7 @@ $tourid = trim($_POST['tourid'] ?? '');
 $team1 = $_POST['team1'] ?? '';
 $team2 = $_POST['team2'] ?? '';
 $date = $_POST['date'] ?? '';
+$status = $_POST['status'] ?? '';
 
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/match.php";
@@ -39,7 +40,7 @@ try {
         exit;
     }
 
-    $newmatch = $matchModel->registerMatch($tourid, $team1, $team2, $date);
+    $newmatch = $matchModel->registerMatch($tourid, $team1, $team2, $date,$status);
 
     if ($newmatch) {
         echo json_encode(["status" => "success", "message" => "match created successfully"]);

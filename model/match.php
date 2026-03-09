@@ -18,14 +18,14 @@ class Matches
         );
     }
 
-    public function registerMatch($tourid, $team1, $team2, $date)
+    public function registerMatch($tourid, $team1, $team2, $date, $status)
     {
         try {
             $stmt = $this->conn->prepare(
-                "INSERT INTO matches (tour_id,team1_id,team2_id,time)
-                 VALUES (?,?,?,?)"
+                "INSERT INTO matches (tour_id,team1_id,team2_id,status)
+                 VALUES (?,?,?,?,?)"
             );
-            $stmt->execute([$tourid, $team1, $team2, $date]);
+            $stmt->execute([$tourid, $team1, $team2, $date, $status]);
             return true;
         } catch (PDOException $e) {
             $this->logError($e);
@@ -63,6 +63,24 @@ class Matches
         }
     }
 
+    public function getMatch($id)
+    {
+        try {
+
+            $stmt = $this->conn->prepare(
+                "SELECT * FROM matches WHERE match_id = ?"
+            );
+
+            $stmt->execute([$id]);
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+
+            $this->logError($e);
+            return false;
+        }
+    }
+
     public function checkDate($tourid, $time)
     {
         try {
@@ -72,7 +90,7 @@ class Matches
      AND ? BETWEEN DATE(start_date) AND DATE(end_date)"
             );
             $stmt->execute([$tourid, $time]);
-      
+
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
             $this->logError($e);
@@ -80,24 +98,37 @@ class Matches
         }
     }
 
-   public function checkTour($tourid,$team1,$team2)
-{
-     
-    try {
-        $stmt = $this->conn->prepare(
-            "SELECT COUNT(*) as total 
+    public function checkTour($tourid, $team1, $team2)
+    {
+
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT COUNT(*) as total 
              FROM teams 
              WHERE tour_id = ? AND team_id IN (?,?)"
-        );
+            );
 
-        $stmt->execute([$tourid,$team1,$team2]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute([$tourid, $team1, $team2]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $result['total'] == 2;
-
-    } catch (PDOException $e) {
-        $this->logError($e);
-        return false;
+            return $result['total'] == 2;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
     }
-}
+
+    public function updatematch($id, $status)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "UPDATE matches SET status = ? WHERE match_id = ?"
+            );
+            $stmt->execute([$status, $id]);
+            return $stmt->rowCount();
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
 }

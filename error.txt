@@ -214,3 +214,7 @@
 06:33:08 2026-03-09 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'start' in 'where clause'
 06:33:17 2026-03-09 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'start' in 'where clause'
 06:33:24 2026-03-09 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'start' in 'where clause'
+13:25:29 2026-03-09 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+13:26:30 2026-03-09 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+13:27:42 2026-03-09 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+13:54:10 2026-03-09 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens

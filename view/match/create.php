@@ -45,6 +45,10 @@ requireAdmin();
                 </select>
                  <label>Match Date</label>
                 <input type="date" id="date">
+                  <label>match status</label>
+                <select class="status">
+                    <option value="Upcoming">Upcoming   </option>
+                </select>
             </div>
             <p id="error"></p>
             <p id="success"></p>
@@ -62,6 +66,7 @@ requireAdmin();
                 var team1 = $(".teamSelect1").val();
                 var team2 = $(".teamSelect2").val();
                 var date = $("#date").val();
+                var status = $(".status").val();
 
                 console.log(tourid);
                 

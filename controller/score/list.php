@@ -1,13 +1,10 @@
 <?php
 require_once __DIR__ . "/../../config/auth_check.php";
-requireAdmin();
+requireLogin();
 header('Content-Type: application/json');
 
-$matchid = trim($_POST['matchid'] ?? '');
-$status = $_POST['status'] ?? '';
-
 require_once __DIR__ . "/../../config/dbconfig.php";
-require_once __DIR__ . "/../../model/match.php";
+require_once __DIR__ . "/../../model/score.php";
 
 try {
     if ($connected != 1) {
@@ -15,17 +12,15 @@ try {
         exit;
     }
 
-    $matchModel = new Matches($conn);
-    $match = $matchModel->updatematch($matchid,$status);
+    $matchModel = new Scores($conn);
+    $match = $matchModel->getMatchscore();
 
-    if (!$match) {
-        echo json_encode(["status" => "failed", "message" => "match not exists not updated"]);
+    if ($match) {
+        echo json_encode(["status" => "success", "message" => "matches fetched", "data" => $match]);
         exit;
     }
- 
-else {
-        echo json_encode(["status" => "success", "message" => "match updated successully"]);
-    }
+
+    echo json_encode(["status" => "failed", "message" => "data not fetched"]);
 } catch (PDOException $e) {
     file_put_contents(__DIR__ . "/../../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
     echo json_encode(["status" => "error", "message" => "Server error"]);

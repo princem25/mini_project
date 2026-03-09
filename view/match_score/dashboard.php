@@ -33,8 +33,8 @@ requireAdmin();
         <div id="dataplayer"></div>
 
         <div class="nav-links">
-            <a href="../match/create.php">Create Match</a>
-            <a href="../match/update.php">update Match</a>
+            <a href="../match_score/create.php">Create Match score</a>
+            <a href="../match_score/edit.php">update Match score </a>
         
             
         </div>
