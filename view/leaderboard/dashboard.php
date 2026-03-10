@@ -20,30 +20,24 @@ requireAdmin();
             <a href="../admin/dashboard.php">Admin Dashboard</a>
         </div>
 
-        <h2>Match Management</h2>
+        <h2>Match Leaderboard</h2>
         <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
-
-        <button id="load">Load Tournaments</button>
+        <label>Tournament</label>
+        <select id="tourselect">
+            <option value="">-- Select Tournament --</option>
+        </select><br><br>
+        <button id="load">Load leaderboard</button>
         <div id="data"></div>
         <br>
-        <button id="loadteams">View Teams</button>
-        <div id="datateam"></div>
-        <br>
-        <button id="loadplayer">View Players</button>
-        <div id="dataplayer"></div>
 
-        <div class="nav-links">
-            <a href="../match/create.php">Create Match</a>
-            <a href="../match/update.php">update Match</a>
-        
-            
-        </div>
-         <p id="success"></p>
+        <p id="success"></p>
         <p id="error"></p>
+
+        
         <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/player/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/leaderboard/list.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/verifiedtour.php') ?>
+
     </div>
 </body>
 

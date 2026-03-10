@@ -239,3 +239,20 @@
 11:42:29 2026-03-10 : SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`tournament`.`match_scores`, CONSTRAINT `match_scores_ibfk_2` FOREIGN KEY (`winner_team_id`) REFERENCES `teams` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE)
 11:44:09 2026-03-10 : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'winner_team_id' cannot be null
 11:44:18 2026-03-10 : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'winner_team_id' cannot be null
+12:12:38 2026-03-10 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.id' in 'field list'
+12:14:36 2026-03-10 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.id' in 'field list'
+12:14:44 2026-03-10 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.id' in 'field list'
+12:15:39 2026-03-10 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.team_id' in 'field list'
+12:19:07 2026-03-10 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':tour_id
+        AND m.status = 'Completed'
+
+        GROUP BY t.team_id, t...' at line 38
+12:20:16 2026-03-10 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':tour_id
+        AND m.status = 'Completed'
+
+        GROUP BY t.team_id, t...' at line 38
+12:21:05 2026-03-10 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?
+
+        GROUP BY t.team_id, t.team_name
+
+        ORDER BY total_points...' at line 39

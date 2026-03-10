@@ -26,6 +26,7 @@ requireAdmin();
             <a href="../player/dashboard.php">Player Management</a>
             <a href="../match/dashboard.php">Match Management</a>
             <a href="../match_score/dashboard.php">Match score</a>
+            <a href="../leaderboard/dashboard.php">Match Leaderboard</a>
         </div>
 
         <p id="error"></p>
