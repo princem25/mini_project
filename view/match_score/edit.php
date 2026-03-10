@@ -22,7 +22,7 @@ requireAdmin();
             <a href="../Team/dashboard.php">Team Dashboard</a>
         </div>
 
-        <h2>Match Score</h2>
+        <h2>Match Score update</h2>
         <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
 
         <button id="loadmatches">Load matches</button>
@@ -34,12 +34,11 @@ requireAdmin();
         <div class="section">
             <div class="form-group">
 
-                <label>select match</label>
+                <label>Select Match ID</label>
                 <select class="matchselect">
                     <option value="">-- Select match --</option>
                 </select>
-
-
+ 
                 <label>team1_score</label>
                 <select class="team1">
                     <option value="5">5</option>
@@ -54,13 +53,10 @@ requireAdmin();
                 <label>winner team</label>
 
                 <select class="winner">
-
+                    <option value="Draw">Draw</option>
                 </select>
-
-                <label>match status</label>
-                <select class="status">
-                    <option value="Completed">Completed</option>
-                </select>
+ 
+             
             </div>
             <p id="error"></p>
             <p id="success"></p>
@@ -72,14 +68,15 @@ requireAdmin();
 
     <script>
         $(document).ready(function() {
+            let team1id = "";
+            let team2id = "";
 
             $("#btn").click(function() {
                 var matchid = $(".matchselect").val();
                 var team1 = $(".team1").val();
                 var team2 = $(".team2").val();
                 var winner = $(".winner").val();
-                var status = $(".status").val();
-
+            
 
                 if (matchid == "" || team1 == "" || team2 == "" || winner == "") {
 
@@ -87,37 +84,34 @@ requireAdmin();
                     $("#success").html("");
 
                 } else {
-
+                    console.log("send");
+                    
                     $("#error").html("");
                     $("#success").html("");
 
                     $.post("/mini_pro/controller/score/update.php", {
-                        matchid,
-                        team1,
-                        team2,
-                        winner
-                    }, function(response) {
+                            matchid,
+                            team1,
+                            team2,
+                            winner,
+                            team1id,
+                            team2id
 
-                        if (response.status === "success") {
+                        },
+                        function(response) {
+                            console.log("return ");
+                            
+                            if (response.status === "success") {
+                                 $("#error").html("");
+                                $("#success").html(response.message);
+                            } else {
+                                $("#success").html("");
+                                $("#error").html(response.message);
+                            }
 
-                            $.post("/mini_pro/controller/match/update.php", {
-                                matchid,
-                                status
-                            }, function(res) {
-
-                                if (res.status === "success") {
-                                    $("#success").html("Match score and status updated");
-                                } else {
-                                    $("#error").html(res.message);
-                                }
-
-                            }, "json");
-
-                        } else {
-                            $("#error").html(response.message);
-                        }
-
-                    }, "json");
+                        },
+                        "json"
+                    );
                 }
             });
 
@@ -138,15 +132,20 @@ requireAdmin();
 
                             console.log(response);
                             if (response.status === "success") {
-                                $("#error").html("");
                                 $(".winner").html(""); // clear old options
+                                team1id = response.data.team1_id;
+                                team2id = response.data.team2_id;
+
+                                // Keep Draw option
+                                $(".winner").append('<option value="Draw">Draw</option>');
 
                                 $(".winner").append(
-                                    '<option value="' + response.data.team1_id + '">' + response.data.team1_id + '</option>'
+                                    '<option value="' + response.data.team1_id + '">' + "Team 1 ID : " + response.data.team1_id + '</option>'
+
                                 );
 
                                 $(".winner").append(
-                                    '<option value="' + response.data.team2_id + '">' + response.data.team2_id + '</option>'
+                                    '<option value="' + response.data.team2_id + '">' + "Team 2 ID : " + response.data.team2_id + '</option>'
                                 );
 
                             } else {

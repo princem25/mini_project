@@ -33,7 +33,7 @@ console.log(response);
                         <td>${match.match_id}</td>
                         <td>${match.team1_score}</td>
                         <td>${match.team2_score}</td>
-                        <td>${match.winner_team_id}</td>
+                        <td>${match.winner_team_id == null ? "draw" : match.winner_team_id}</td>
                      
                          
                     </tr>

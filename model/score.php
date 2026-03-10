@@ -18,7 +18,7 @@ class Scores
         );
     }
 
-    public function matchscoreReg($matchid, $team1, $team2, $winner)
+    public function matchscoreReg($matchid, $team1, $team2, $winner,$status)
     {
         try {
             $stmt = $this->conn->prepare(
@@ -26,13 +26,20 @@ class Scores
                  VALUES (?,?,?,?)"
             );
             $stmt->execute([$matchid, $team1, $team2, $winner]);
+
+             $stmt = $this->conn->prepare(
+                "UPDATE matches SET status = ? WHERE match_id = ?"
+            );
+            $stmt->execute([$status, $matchid]);
+           
             return true;
         } catch (PDOException $e) {
             $this->logError($e);
             return false;
         }
     }
-
+ 
+ 
     public function matchscoreupdate($matchid, $team1, $team2, $winner)
     {
         try {
@@ -57,6 +64,21 @@ class Scores
             $stmt = $this->conn->query(
                 "SELECT * FROM match_scores"
             );
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+
+        public function checkmatchscore($id)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT * FROM match_scores where match_id = ?"
+            );
+            $stmt->execute([$id]);
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e);

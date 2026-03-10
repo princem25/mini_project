@@ -55,7 +55,7 @@ requireAdmin();
                 <label>winner team</label>
 
                 <select class="winner">
-
+                    <option value="Draw">Draw</option>
                 </select>
 
                 <label>match status</label>
@@ -73,13 +73,15 @@ requireAdmin();
 
     <script>
         $(document).ready(function() {
+            let team1id = "";
+            let team2id = "";
 
             $("#btn").click(function() {
                 var matchid = $(".matchselect").val();
                 var team1 = $(".team1").val();
                 var team2 = $(".team2").val();
                 var winner = $(".winner").val();
-
+                var status = $(".status").val();
 
                 if (matchid == "" || team1 == "" || team2 == "" || winner == "") {
 
@@ -95,7 +97,10 @@ requireAdmin();
                             matchid,
                             team1,
                             team2,
-                            winner
+                            winner,
+                            status,
+                            team1id,
+                            team2id
 
                         },
                         function(response) {
@@ -129,16 +134,22 @@ requireAdmin();
 
                             console.log(response);
                             if (response.status === "success") {
-                                $("#error").html("");
                                 $(".winner").html(""); // clear old options
+                                team1id = response.data.team1_id;
+                                team2id = response.data.team2_id;
 
-                                $(".winner").append(
-                                    '<option value="' + response.data.team1_id + '">' + response.data.team1_id + '</option>'
+                                // Keep Draw option
+                                $(".winner").append('<option value="Draw">Draw</option>');
+
+                                 $(".winner").append(
+                                    '<option value="' + response.data.team1_id + '">' + "Team 1 ID : " + response.data.team1_id + '</option>'
+
                                 );
 
                                 $(".winner").append(
-                                    '<option value="' + response.data.team2_id + '">' + response.data.team2_id + '</option>'
+                                    '<option value="' + response.data.team2_id + '">' + "Team 2 ID : " + response.data.team2_id + '</option>'
                                 );
+
 
                             } else {
 
@@ -158,37 +169,7 @@ requireAdmin();
                 }
 
             });
-            $("#btn").click(function() {
-                var matchid = $(".matchselect").val();
-                var status = $(".status").val();
 
-                if (matchid == "" || status == "") {
-
-                    $("#error").html("all fields are required ");
-                    $("#success").html("");
-                } else {
-                    $("#error").html("");
-                    $("#success").html("");
-                    console.log("send");
-
-                    $.post("/mini_pro/controller/match/update.php", {
-                            matchid,
-                            status
-                        },
-                        function(response) {
-                            console.log("return");
-                            if (response.status === "success") {
-                                $("#success").html(response.message);
-                                $("#error").html("");
-                            } else {
-                                $("#error").html(response.message);
-                                $("#success").html("");
-                            }
-                        },
-                        "json"
-                    );
-                }
-            });
         });
     </script>
 

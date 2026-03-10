@@ -82,10 +82,10 @@ requireAdmin();
                     console.log("send");
                     
                     $.post("/mini_pro/controller/match/create.php", {
-                           tourid,team1,team2,date
+                           tourid,team1,team2,date,status
                         },
                         function(response) {
-                               console.log("return");
+                               console.log(response);
                             if (response.status === "success") {
                                 $("#success").html(response.message);
                                 $("#error").html("");

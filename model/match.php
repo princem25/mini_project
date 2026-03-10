@@ -22,7 +22,7 @@ class Matches
     {
         try {
             $stmt = $this->conn->prepare(
-                "INSERT INTO matches (tour_id,team1_id,team2_id,status)
+                "INSERT INTO matches (tour_id,team1_id,team2_id,time,status)
                  VALUES (?,?,?,?,?)"
             );
             $stmt->execute([$tourid, $team1, $team2, $date, $status]);

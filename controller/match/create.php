@@ -9,6 +9,11 @@ $team2 = $_POST['team2'] ?? '';
 $date = $_POST['date'] ?? '';
 $status = $_POST['status'] ?? '';
 
+if($team1 === $team2 && $status != "draw"){
+      echo json_encode(["status" => "failed", "message" => "winner should be draw"]);
+        exit;
+}
+
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/match.php";
 
