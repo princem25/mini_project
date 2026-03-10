@@ -21,7 +21,7 @@ class Leaderboard
 
     // Get leaderboard
 
-    public function getLeaderboard($tour_id)
+    public function getLeaderboard($tour_id, $limit = null, $offset = null)
     {
         try {
 
@@ -72,8 +72,17 @@ class Leaderboard
         ORDER BY total_points DESC
         ";
 
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :limit OFFSET :offset";
+            }
+
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':tour_id', $tour_id, PDO::PARAM_INT);
+
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            }
 
             $stmt->execute();
 

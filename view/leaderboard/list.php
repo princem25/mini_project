@@ -4,26 +4,29 @@ requireLogin();
 ?>
 <script>
 
-$("#load").click(function() {
+let currentOffset = 0;
+const limit = 2;
 
+function loadLeaderboard() {
     var tourid = $('#tourselect').val();
-       console.log("send", tourid);
+    console.log("send", tourid, "offset", currentOffset);
 
     if(!tourid){
         $("#error").html("Please select a tournament");
         return;
     }
 
- 
-
     $.post("/mini_pro/controller/leaderboard/list.php", 
-    { tourid: tourid }, 
+    { 
+        tourid: tourid,
+        limit: limit,
+        offset: currentOffset
+    }, 
 
     function(response) {
-
         console.log("response:", response);
 
-        if (response.status === "success") {
+        if (response.status === "success" && response.data.length > 0) {
 
             let table = `
                 <table border="1" cellpadding="8">
@@ -38,7 +41,6 @@ $("#load").click(function() {
             `;
 
             response.data.forEach(function(team) {
-
                 table += `
                     <tr>
                         <td>${team.team_name}</td>
@@ -51,15 +53,31 @@ $("#load").click(function() {
                 `;
             });
 
-            table += `</table>`;
+            table += `</table><br>`;
+            if (currentOffset > 0) {
+                table += `<button id="prevBtn">Previous</button> `;
+            }
+            table += `<button id="nextBtn">Next</button>`;
 
             $("#data").html(table).show();
             $("#error").html("");
 
+            // Re-bind buttons
+            $("#prevBtn").off("click").on("click", function() {
+                currentOffset = Math.max(0, currentOffset - limit);
+                loadLeaderboard();
+            });
+
+            $("#nextBtn").off("click").on("click", function() {
+                currentOffset += limit;
+                loadLeaderboard();
+            });
+
+        } else if (response.status === "success" && response.data.length === 0) {
+            $("#data").append("<p>No more data available.</p>");
+            $("#nextBtn").hide();
         } else {
-
             $("#error").html(response.message);
-
         }
 
     }, "json")
@@ -67,7 +85,11 @@ $("#load").click(function() {
     .fail(function() {
         $("#error").html("Server error while loading leaderboard");
     });
+}
 
+$("#load").click(function() {
+    currentOffset = 0; // Start from first record (0-indexed)
+    loadLeaderboard();
 });
 
-</script>
+</script>   
