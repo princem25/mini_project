@@ -11,17 +11,17 @@ class User
     }
 
     // REGISTER USER
-    public function register($username, $pass, $roleid)
+    public function register($email, $name, $pass, $roleid)
     {
         try {
             $hash = hash("sha256", $pass);
 
             $stmt = $this->conn->prepare(
-                "INSERT INTO users (name, password, role_id)
-                 VALUES (?, ?, ?)"
+                "INSERT INTO users (email, name, password, role_id)
+                 VALUES (?, ?, ?, ?)"
             );
 
-            $stmt->execute([$username, $hash, $roleid]);
+            $stmt->execute([$email, $name, $hash, $roleid]);
 
             return true;
 
@@ -31,14 +31,14 @@ class User
     }
 
     // CHECK IF USER EXISTS
-    public function check($username, $roleid)
+    public function check($email, $roleid)
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT user_id FROM users WHERE name = ? AND role_id = ?"
+                "SELECT user_id FROM users WHERE email = ? AND role_id = ?"
             );
 
-            $stmt->execute([$username, $roleid]);
+            $stmt->execute([$email, $roleid]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 
@@ -48,17 +48,17 @@ class User
     }
 
     // LOGIN USER
-    public function login($username, $pass, $roleid)
+    public function login($email, $pass, $roleid)
     {
         try {
             $hash = hash("sha256", $pass);
 
             $stmt = $this->conn->prepare(
-                "SELECT role_id FROM users
-                 WHERE name = ? AND password = ? AND role_id = ?"
+                "SELECT role_id, name FROM users
+                 WHERE email = ? AND password = ? AND role_id = ?"
             );
 
-            $stmt->execute([$username, $hash, $roleid]);
+            $stmt->execute([$email, $hash, $roleid]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 

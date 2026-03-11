@@ -16,8 +16,12 @@
         <p class="subtitle">Create a new account</p>
 
         <div class="form-group">
-            <label>Username</label>
+            <label>Full Name</label>
             <input type="text" name="name" required id="name">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required id="email">
         </div>
         <div class="form-group">
             <label>Password</label>
@@ -45,11 +49,21 @@
                 
 
                 var name = $("#name").val();
+                var email = $("#email").val();
                 var pass = $("#pass").val();
                 var role = $("input[name='role']:checked").val();
 
-                if (name === "" || pass === "" || role === "") {
-                    $("#error").html("all fields are required");
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var passRegex = /^.{6,}$/; // Minimum 6 characters
+
+                if (name === "" || email === "" || pass === "" || role === undefined) {
+                    $("#error").html("All fields are required");
+                    $("#success").html("");
+                } else if (!emailRegex.test(email)) {
+                    $("#error").html("Please enter a valid email address");
+                    $("#success").html("");
+                } else if (!passRegex.test(pass)) {
+                    $("#error").html("Password must be at least 6 characters long");
                     $("#success").html("");
                 } else {
                     $("#error").html("");
@@ -57,6 +71,7 @@
                     console.log("sending request...");  
                     $.post("/mini_pro/controller/auth/register.php", {
                             name,
+                            email,
                             pass,
                             role
                         },
@@ -64,13 +79,13 @@
                           
                             console.log("SERVER RESPONSE:", response);
                              if (response.status === "exists") {
-                                 $("#error").html("Username already registered");
+                                 $("#error").html("Email already registered");
                                  $("#success").html("");
                             } else if (response.status === "registered") {
                                 $("#success").html("Registration successful");
                                 $("#error").html("");
                             } else {    
-                                $("#error").html("Something went wrong");
+                                $("#error").html(response.message);
                                 $("#success").html("");
                             }
 

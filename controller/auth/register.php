@@ -1,12 +1,23 @@
 <?php
 header('Content-Type: application/json');
 
-$username = trim($_POST['name'] ?? '');
+$name     = trim($_POST['name'] ?? '');
+$email    = trim($_POST['email'] ?? '');
 $password = trim($_POST['pass'] ?? '');
 $role     = $_POST['role'] ?? '';
 
-if ($username === '' || $password === '' || $role === '') {
+if ($name === '' || $email === '' || $password === '' || $role === '') {
     echo json_encode(["status" => "error", "message" => "All fields required"]);
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(["status" => "error", "message" => "Invalid email format"]);
+    exit;
+}
+
+if (strlen($password) < 6) {
+    echo json_encode(["status" => "error", "message" => "Password must be at least 6 characters"]);
     exit;
 }
 
@@ -20,14 +31,14 @@ try {
     }
 
     $userModel = new User($conn);
-    $existingUser = $userModel->check($username, $role);
+    $existingUser = $userModel->check($email, $role);
 
     if ($existingUser) {
-        echo json_encode(["status" => "exists", "message" => "Username already registered"]);
+        echo json_encode(["status" => "exists", "message" => "Email already registered"]);
         exit;
     }
 
-    $created = $userModel->register($username, $password, $role);
+    $created = $userModel->register($email, $name, $password, $role);
 
     if ($created) {
         echo json_encode(["status" => "registered", "message" => "Registration successful"]);

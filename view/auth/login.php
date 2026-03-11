@@ -27,8 +27,8 @@ if(isset($_SESSION['role'])){
         <p class="subtitle">Sign in to your account</p>
 
         <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="name" required id="name">
+            <label>Email Address</label>
+            <input type="email" name="email" required id="email">
         </div>
         <div class="form-group">
             <label>Password</label>
@@ -53,19 +53,24 @@ if(isset($_SESSION['role'])){
         $(document).ready(function() {
             $("#login").click(function() {
               
-                var name = $("#name").val();
+                var email = $("#email").val();
                 var pass = $("#pass").val();
                 var role = $("input[name='role']:checked").val();
 
-                if (name === "" || pass === "" || role === "") {
-                    $("#error").html("all fields are required");
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (email === "" || pass === "" || role === undefined) {
+                    $("#error").html("All fields are required");
+                    $("#success").html("");
+                } else if (!emailRegex.test(email)) {
+                    $("#error").html("Please enter a valid email address");
                     $("#success").html("");
                 } else {
                     $("#error").html("");
                     $("#success").html("");
                      console.log("req sending");
                     $.post("/mini_pro/controller/auth/login.php", {
-                            name,
+                            email,
                             pass,
                             role
                         },
