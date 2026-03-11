@@ -76,10 +76,16 @@ requireAdmin();
                 var end = $("#end_date").val();
                 var type = $("#type").val();
                 var status = $("#status").val();
- 
+                var nameRegex = /^[a-zA-Z0-9 ]+$/;
+
                 if (id == "" || name == "" || start == "" || end == "" || type == "" || status == "") {
- 
                     $("#error").html("all fields are required");
+                    $("#success").html("");
+                } else if (!nameRegex.test(name)) {
+                    $("#error").html("Special characters are not allowed in name");
+                    $("#success").html("");
+                } else if (new Date(end) < new Date(start)) {
+                    $("#error").html("End date must be the same as or after the start date.");
                     $("#success").html("");
                 } else {
                     $("#error").html("");
@@ -108,6 +114,18 @@ requireAdmin();
                 }
             });
 
+            // Restrict end date selection
+            $("#start_date").change(function() {
+                var startDate = $(this).val();
+                $("#end_date").attr("min", startDate);
+                
+                // If end date is now before the new start date, clear it
+                var endDate = $("#end_date").val();
+                if (endDate && endDate < startDate) {
+                    $("#end_date").val("");
+                }
+            });
+
         });
     </script>
 
@@ -120,6 +138,7 @@ requireAdmin();
                 if (response.status === "success") {
 
                     let options = '<option value="">-- Select Tour --</option>';
+                    window.tournamentData = response.data; // Store globally for easy access
 
                     response.data.forEach(function(tour) {
                         options += `<option value="${tour.tour_id}">
@@ -133,6 +152,23 @@ requireAdmin();
             }, "json");
         }
 
+        $("#tourselect").change(function() {
+            var id = $(this).val();
+            if (id && window.tournamentData) {
+                var tour = window.tournamentData.find(t => t.tour_id == id);
+                if (tour) {
+                    $("#name").val(tour.tour_name);
+                    $("#start_date").val(tour.start_date);
+                    $("#end_date").val(tour.end_date).attr("min", tour.start_date);
+                    $("#type").val(tour.type);
+                    $("#status").val(tour.status);
+                }
+            } else {
+                $("#name").val("");
+                $("#start_date").val("");
+                $("#end_date").val("").removeAttr("min");
+            }
+        });
 
         loadTours();
     </script>

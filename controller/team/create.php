@@ -5,6 +5,16 @@ header('Content-Type: application/json');
 
 $teamname = trim($_POST['name'] ?? '');
 
+if ($teamname === '') {
+    echo json_encode(["status" => "error", "message" => "Team name is required"]);
+    exit;
+}
+
+if (!preg_match("/^[a-zA-Z0-9 ]+$/", $teamname)) {
+    echo json_encode(["status" => "error", "message" => "Special characters are not allowed in name"]);
+    exit;
+}
+
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/team.php";
 

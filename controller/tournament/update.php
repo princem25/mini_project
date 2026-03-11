@@ -10,6 +10,21 @@ $end = $_POST['end'] ?? '';
 $type = $_POST['type'] ?? '';
 $status = $_POST['status'] ?? '';
 
+if ($id === '' || $tourName === '') {
+    echo json_encode(["status" => "error", "message" => "All fields are required"]);
+    exit;
+}
+
+if (!preg_match("/^[a-zA-Z0-9 ]+$/", $tourName)) {
+    echo json_encode(["status" => "error", "message" => "Special characters are not allowed in name"]);
+    exit;
+}
+
+if ($end < $start) {
+    echo json_encode(["status" => "error", "message" => "End date must be the same as or after the start date."]);
+    exit;
+}
+
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/tournament.php";
 

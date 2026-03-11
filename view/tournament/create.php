@@ -70,10 +70,16 @@ requireAdmin();
                 var end = $("#end_date").val();
                 var type = $("#type").val();
                 var status = $("#status").val();
- 
+                var nameRegex = /^[a-zA-Z0-9 ]+$/;
+
                 if (name == "" || start == "" || end == "" || type == "" || status == "") {
- 
                     $("#error").html("all fields are required");
+                    $("#success").html("");
+                } else if (!nameRegex.test(name)) {
+                    $("#error").html("Special characters are not allowed in name");
+                    $("#success").html("");
+                } else if (new Date(end) < new Date(start)) {
+                    $("#error").html("End date must be the same as or after the start date.");
                     $("#success").html("");
                 } else {
                     $("#error").html("");
@@ -97,6 +103,18 @@ requireAdmin();
                         },
                         "json"
                     );
+                }
+            });
+
+            // Restrict end date selection
+            $("#start_date").change(function() {
+                var startDate = $(this).val();
+                $("#end_date").attr("min", startDate);
+                
+                // If end date is now before the new start date, clear it
+                var endDate = $("#end_date").val();
+                if (endDate && endDate < startDate) {
+                    $("#end_date").val("");
                 }
             });
 

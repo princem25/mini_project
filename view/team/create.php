@@ -45,12 +45,15 @@ requireAdmin();
 
             $("#btn").click(function() {
                 var name = $("#name").val();
-              
+                var nameRegex = /^[a-zA-Z0-9 ]+$/;
  
                 if (name == "") {
  
 
                     $("#error").html("all fields are required");
+                    $("#success").html("");
+                } else if (!nameRegex.test(name)) {
+                    $("#error").html("Special characters are not allowed in name");
                     $("#success").html("");
                 } else {
                     $("#error").html("");

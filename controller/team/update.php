@@ -6,6 +6,16 @@ header('Content-Type: application/json');
 $id = trim($_POST['id'] ?? '');
 $name = trim($_POST['name'] ?? '');
 
+if ($id === '' || $name === '') {
+    echo json_encode(["status" => "error", "message" => "All fields are required"]);
+    exit;
+}
+
+if (!preg_match("/^[a-zA-Z0-9 ]+$/", $name)) {
+    echo json_encode(["status" => "error", "message" => "Special characters are not allowed in name"]);
+    exit;
+}
+
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/team.php";
 
