@@ -4,7 +4,7 @@ requireAdmin();
 header('Content-Type: application/json');
 
 $id = trim($_POST['id'] ?? '');
-$name = trim($_POST['name'] ?? '');
+$name = preg_replace('/\s+/', ' ', strtolower(trim($_POST['name'] ?? '')));
 
 if ($id === '' || $name === '') {
     echo json_encode(["status" => "error", "message" => "All fields are required"]);

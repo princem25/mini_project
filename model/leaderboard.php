@@ -92,4 +92,33 @@ class Leaderboard
             return false;
         }
     }
+
+    public function getKnockoutChampion($tour_id)
+    {
+        try {
+            $sql = "
+            SELECT 
+                t.team_id,
+                t.team_name,
+                ms.winner_team_id
+            FROM matches m
+            INNER JOIN match_scores ms ON m.match_id = ms.match_id
+            INNER JOIN teams t ON ms.winner_team_id = t.team_id
+            WHERE m.tour_id = :tour_id 
+              AND m.status = 'Completed'
+              AND ms.winner_team_id IS NOT NULL
+            ORDER BY m.time DESC, m.match_id DESC
+            LIMIT 1
+            ";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':tour_id', $tour_id, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
 }

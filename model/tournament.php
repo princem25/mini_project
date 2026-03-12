@@ -37,7 +37,7 @@ class Tournament
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT tour_id FROM tournaments WHERE tour_name = ?"
+                "SELECT tour_id FROM tournaments WHERE LOWER(tour_name) = LOWER(?)"
             );
             $stmt->execute([$tourName]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -140,5 +140,17 @@ class Tournament
         }
     }
       
- 
+    public function getTourById($id)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT * FROM tournaments WHERE tour_id = ?"
+            );
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
 }

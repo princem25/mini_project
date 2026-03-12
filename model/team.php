@@ -37,7 +37,7 @@ class Team
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT team_id FROM teams WHERE team_name = ?"
+                "SELECT team_id FROM teams WHERE LOWER(team_name) = LOWER(?)"
             );
             $stmt->execute([$name]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;

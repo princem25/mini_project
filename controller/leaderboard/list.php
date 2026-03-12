@@ -6,6 +6,8 @@ header('Content-Type: application/json');
 require_once __DIR__ . "/../../config/dbconfig.php";
 require_once __DIR__ . "/../../model/leaderboard.php";
 
+require_once __DIR__ . "/../../model/tournament.php";
+
 $tourid = $_POST['tourid'];
 $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 1;
 $offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
@@ -16,11 +18,35 @@ try {
         exit;
     }
 
+    $tourModel = new Tournament($conn);
+    $tourInfo = $tourModel->getTourById($tourid);
+    $tourStatus = $tourInfo ? strtolower($tourInfo['status']) : "active";
+    $tourType   = $tourInfo ? strtolower($tourInfo['type']) : "league";
+
     $matchModel = new Leaderboard($conn);
     $match = $matchModel->getLeaderboard($tourid, $limit, $offset);
+    $knockoutChampion = null;
+
+    if ($tourStatus === "completed" && $tourType === "knockout") {
+        $champData = $matchModel->getKnockoutChampion($tourid);
+        if ($champData) {
+            $knockoutChampion = [
+                'team_id' => $champData['team_id'],
+                'team_name' => $champData['team_name']
+            ];
+        }
+    }
 
     if ($match !== false) {
-        echo json_encode(["status" => "success", "message" => "matches fetched", "data" => $match, "offset" => $offset]);
+        echo json_encode([
+            "status" => "success", 
+            "message" => "matches fetched", 
+            "data" => $match, 
+            "offset" => $offset, 
+            "tour_status" => $tourStatus, 
+            "tour_type" => $tourType,
+            "knockout_champion" => $knockoutChampion
+        ]);
         exit;
     }
 

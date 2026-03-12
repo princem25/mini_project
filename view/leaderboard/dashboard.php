@@ -32,8 +32,8 @@ requireAdmin();
         <select id="tourselect">
             <option value="">-- Select Tournament --</option>
         </select><br><br>
-        <button id="load">Load leaderboard</button>
-        <div id="data"></div>
+        <button id="loadleaderboard">Load leaderboard</button><br><br>
+        <div id="dataleaderboard"></div>
         <br>
 
         <p id="success"></p>

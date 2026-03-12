@@ -3,7 +3,7 @@ require_once __DIR__ . "/../../config/auth_check.php";
 requireAdmin();
 header('Content-Type: application/json');
 
-$teamname = trim($_POST['name'] ?? '');
+$teamname = preg_replace('/\s+/', ' ', strtolower(trim($_POST['name'] ?? '')));
 
 if ($teamname === '') {
     echo json_encode(["status" => "error", "message" => "Team name is required"]);

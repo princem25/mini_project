@@ -3,7 +3,7 @@ require_once __DIR__ . "/../../config/auth_check.php";
 requireAdmin();
 header('Content-Type: application/json');
 
-$tourName = trim($_POST['name'] ?? '');
+$tourName = preg_replace('/\s+/', ' ', strtolower(trim($_POST['name'] ?? '')));
 $start = trim($_POST['start'] ?? '');
 $end = $_POST['end'] ?? '';
 $type = $_POST['type'] ?? '';

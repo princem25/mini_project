@@ -17,18 +17,27 @@ requirePlayer();
 <body>
     <div class="wrapper">
        
-        <h2>Player Dashboard --- pending</h2>
+        <h2>Player Dashboard</h2>
         <p class="subtitle">Hello, <?php if(isset($_COOKIE['name'])) echo $_COOKIE['name'];?> — Welcome to Tournaments</p>
 
-        
-      <button id="load">Load Tournaments</button>
+        <label for="">view tournaments : </label><br>
+      <button id="load">Tournaments</button>
         <div id="data"></div>
         <br>
-        <button id="loadteams">View Teams</button>
+         <label for="">view teams : </label><br>
+        <button id="loadteams">Teams</button>
         <div id="datateam"></div>
         <br>
-        <button id="loadplayer">View Players</button>
+         <label for="">view players : </label><br>
+        <button id="loadplayer">Players</button>
         <div id="dataplayer"></div>
+        <br>
+         <label for="">view score : </label><br>
+          <select id="tourselect">
+            <option value="">-- Select Tournament --</option>
+        </select><br><br>
+          <button id="loadleaderboard">leaderboard</button>
+        <div id="dataleaderboard"></div>
       
 
         <p id="error"></p>
@@ -37,6 +46,8 @@ requirePlayer();
         <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
         <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
         <?php require_once('C:/xampp_3/htdocs/mini_pro/view/player/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/leaderboard/list.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/verifiedtour.php') ?>
     </div>
 </body>
 
