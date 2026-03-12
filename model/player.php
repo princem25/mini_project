@@ -18,19 +18,26 @@ class Player
         );
     }
 
-    public function getAllPlayers()
+    public function getAllPlayers($limit = null, $offset = null)
     {
         try {
-            $stmt = $this->conn->query(
-                "SELECT u.user_id,u.name,COALESCE(t.team_name, 'not part of any team') as team_id FROM users as u
+            $sql = "SELECT u.user_id,u.name,COALESCE(t.team_name, 'not part of any team') as team_id FROM users as u
                      left join players as p on u.user_id = p.user_id
                       left join teams as t on p.team_id = t.team_id 
                       where u.role_id = 2 and p.team_id is null 
                       union SELECT u.user_id as id,u.name
                        as nm,COALESCE(t.team_name, 'not part of any team') as tid FROM users as u
                         left join players as p on u.user_id = p.user_id 
-                        left join teams as t on p.team_id = t.team_id where u.role_id = 2"
-            );
+                        left join teams as t on p.team_id = t.team_id where u.role_id = 2";
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :limit OFFSET :offset";
+            }
+            $stmt = $this->conn->prepare($sql);
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            }
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e);

@@ -12,8 +12,11 @@ try {
         exit;
     }
 
+    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : null;
+
     $teamModel = new Team($conn);
-    $team = $teamModel->getTeams();
+    $team = $teamModel->getTeams($limit, $offset);
 
     if ($team) {
         echo json_encode(["status" => "success", "message" => "teams fetched", "data" => $team]);

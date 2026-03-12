@@ -4,12 +4,20 @@ requireLogin();
 ?>
 <script>
 
-$("#load").click(function() {
+let tourOffset = 0;
+const tourLimit = 5;
 
+function loadTournaments() {
+    console.log("load tournaments with offset", tourOffset);
    
-    $.get("/mini_pro/controller/tournament/list.php", function (response) {
+    $.get("/mini_pro/controller/tournament/list.php", 
+    {
+        limit: tourLimit,
+        offset: tourOffset
+    }, 
+    function (response) {
 
-        if (response.status === "success") {
+        if (response.status === "success" && response.data.length > 0) {
 
             let table = `
                 <table border="1" cellpadding="8">
@@ -38,17 +46,39 @@ $("#load").click(function() {
                 `;
             });
 
-            table += `</table>`;
+            table += `</table><br>`;
+            
+            if (tourOffset > 0) {
+                table += `<button id="prevTourBtn">Previous</button> `;
+            }
+            table += `<button id="nextTourBtn">Next</button>`;
 
             $("#data").html(table).show();
             $("#error").html("");
 
+            $("#prevTourBtn").off("click").on("click", function() {
+                tourOffset = Math.max(0, tourOffset - tourLimit);
+                loadTournaments();
+            });
+
+            $("#nextTourBtn").off("click").on("click", function() {
+                tourOffset += tourLimit;
+                loadTournaments();
+            });
+
+        } else if (response.status === "success" && response.data.length === 0) {
+            $("#data").append("<p>No more data available.</p>");
+            $("#nextTourBtn").hide();
         } else {
             $("#error").html(response.message);
         }
 
     }, "json");
+}
 
+$("#load").click(function() {
+    tourOffset = 0;
+    loadTournaments();
 });
 
 </script>

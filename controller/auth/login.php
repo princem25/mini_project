@@ -27,6 +27,8 @@ try {
     $userModel = new User($conn);
     $user = $userModel->login($email, $password, $role);
 
+
+
     if ($user) {
         session_start();
         session_regenerate_id(true);
@@ -36,7 +38,7 @@ try {
         echo json_encode(["status" => "success", "role" => $_SESSION['role']]);
         exit;
     } else {
-        echo json_encode(["status" => "failed", "message" => "Invalid credentials"]);
+        echo json_encode(["status" => "failed", "message" => "Invalid credentials or register "]);
     }
 } catch (PDOException $e) {
     file_put_contents(__DIR__ . "/../../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);

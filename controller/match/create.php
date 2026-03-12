@@ -26,6 +26,16 @@ try {
 
     $matchModel = new Matches($conn);
     $match = $matchModel->checkMatch($team1, $team2);
+    $matchdate = $matchModel->getmatchdate();
+
+    if($matchdate){
+        foreach($matchdate as $date){
+            if($date['time'] == $date){
+                echo json_encode(["status" => "failed", "message" => "match already exists"]);
+                exit;
+            }
+        }
+    }
     $checktour = $matchModel->checkTour($tourid, $team1, $team2);
 
     if (!$checktour) {

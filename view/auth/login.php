@@ -32,7 +32,10 @@ if(isset($_SESSION['role'])){
         </div>
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="pass" required id="pass">
+            <div class="password-container">
+                <input type="password" name="pass" required id="pass">
+                <span class="toggle-password" onclick="togglePasswordVisibility('pass', this)">👁️</span>
+            </div>
         </div>
         <div class="form-group">
             <label>Role</label>
@@ -92,6 +95,18 @@ if(isset($_SESSION['role'])){
     </script>
 
 
+    <script>
+        function togglePasswordVisibility(inputId, button) {
+            const el = document.getElementById(inputId);
+            if (el.type === "password") {
+                el.type = "text";
+                button.innerHTML = "🙈";
+            } else {
+                el.type = "password";
+                button.innerHTML = "👁️";
+            }
+        }
+    </script>
 </body>
 
 </html>

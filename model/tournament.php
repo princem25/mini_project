@@ -61,12 +61,19 @@ class Tournament
         }
     }
 
-    public function getTour()
+    public function getTour($limit = null, $offset = null)
     {
         try {
-            $stmt = $this->conn->query(
-                "SELECT * FROM tournaments ORDER BY start_date ASC"
-            );
+            $sql = "SELECT * FROM tournaments ORDER BY start_date ASC";
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :limit OFFSET :offset";
+            }
+            $stmt = $this->conn->prepare($sql);
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            }
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e);

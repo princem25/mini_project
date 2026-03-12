@@ -16,6 +16,7 @@ requireAdmin();
 
 <body>
     <div class="wrapper">
+  
         <h2>Admin Dashboard</h2>
         <h3>Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></h3>
         <p class="subtitle">You have admin access</p>

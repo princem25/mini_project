@@ -4,16 +4,22 @@ requireAdmin();
 ?>
 <script>
 
-$("#loadmatches").click(function () {
+let matchOffset = 0;
+const matchLimit = 5;
 
-console.log("btn clicked");
+function loadMatches() {
+    console.log("load matches with offset", matchOffset);
     
-    $.get("../../controller/match/list.php", function (response) {
+    $.get("../../controller/match/list.php", 
+    {
+        limit: matchLimit,
+        offset: matchOffset
+    }, 
+    function (response) {
 
-  
-console.log(response);   
+        console.log(response);   
 
-        if (response.status === "success") {
+        if (response.status === "success" && response.data.length > 0) {
 
             let table = `
                 <table border="1" cellpadding="8">
@@ -41,17 +47,39 @@ console.log(response);
                 `;
             });
 
-            table += `</table>`;
+            table += `</table><br>`;
+            
+            if (matchOffset > 0) {
+                table += `<button id="prevMatchBtn">Previous</button> `;
+            }
+            table += `<button id="nextMatchBtn">Next</button>`;
 
             $("#datamatch").html(table).show();
             $("#error").html("");
 
+            $("#prevMatchBtn").off("click").on("click", function() {
+                matchOffset = Math.max(0, matchOffset - matchLimit);
+                loadMatches();
+            });
+
+            $("#nextMatchBtn").off("click").on("click", function() {
+                matchOffset += matchLimit;
+                loadMatches();
+            });
+
+        } else if (response.status === "success" && response.data.length === 0) {
+            $("#datamatch").append("<p>No more data available.</p>");
+            $("#nextMatchBtn").hide();
         } else {
             $("#error").html(response.message);
         }
 
     }, "json");
+}
 
+$("#loadmatches").click(function () {
+    matchOffset = 0;
+    loadMatches();
 });
 
 </script>

@@ -4,16 +4,22 @@ requireAdmin();
 ?>
 <script>
 
-$("#matchscore").click(function () {
+let matchScoreOffset = 0;
+const matchScoreLimit = 5;
 
-console.log("btn clicked");
+function loadMatchScores() {
+    console.log("load match scores with offset", matchScoreOffset);
     
-    $.get("../../controller/score/list.php", function (response) {
+    $.get("../../controller/score/list.php", 
+    {
+        limit: matchScoreLimit,
+        offset: matchScoreOffset
+    }, 
+    function (response) {
 
-  
-console.log(response);   
+        console.log(response);   
 
-        if (response.status === "success") {
+        if (response.status === "success" && response.data.length > 0) {
 
             let table = `
                 <table border="1" cellpadding="8">
@@ -40,17 +46,39 @@ console.log(response);
                 `;
             });
 
-            table += `</table>`;
+            table += `</table><br>`;
+            
+            if (matchScoreOffset > 0) {
+                table += `<button id="prevMatchScoreBtn">Previous</button> `;
+            }
+            table += `<button id="nextMatchScoreBtn">Next</button>`;
 
             $("#datamatchscore").html(table).show();
             $("#error").html("");
 
+            $("#prevMatchScoreBtn").off("click").on("click", function() {
+                matchScoreOffset = Math.max(0, matchScoreOffset - matchScoreLimit);
+                loadMatchScores();
+            });
+
+            $("#nextMatchScoreBtn").off("click").on("click", function() {
+                matchScoreOffset += matchScoreLimit;
+                loadMatchScores();
+            });
+
+        } else if (response.status === "success" && response.data.length === 0) {
+            $("#datamatchscore").append("<p>No more data available.</p>");
+            $("#nextMatchScoreBtn").hide();
         } else {
             $("#error").html(response.message);
         }
 
     }, "json");
+}
 
+$("#matchscore").click(function () {
+    matchScoreOffset = 0;
+    loadMatchScores();
 });
 
 </script>

@@ -58,12 +58,19 @@ class Scores
         }
     }
 
-    public function getMatchscore()
+    public function getMatchscore($limit = null, $offset = null)
     {
         try {
-            $stmt = $this->conn->query(
-                "SELECT * FROM match_scores"
-            );
+            $sql = "SELECT * FROM match_scores";
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :limit OFFSET :offset";
+            }
+            $stmt = $this->conn->prepare($sql);
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            }
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e);

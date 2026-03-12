@@ -5,7 +5,7 @@ requireLogin();
 <script>
 
 let currentOffset = 0;
-const limit = 2;
+const limit = 5;
 
 function loadLeaderboard() {
     var tourid = $('#tourselect').val();

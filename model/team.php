@@ -61,12 +61,19 @@ class Team
         }
     }
 
-    public function getTeams()
+    public function getTeams($limit = null, $offset = null)
     {
         try {
-            $stmt = $this->conn->query(
-                "SELECT team_id,team_name,COALESCE(tour_id, 'not part of any tournament') as tour_id,verified FROM teams"
-            );
+            $sql = "SELECT team_id,team_name,COALESCE(tour_id, 'not part of any tournament') as tour_id,verified FROM teams";
+            if ($limit !== null && $offset !== null) {
+                $sql .= " LIMIT :limit OFFSET :offset";
+            }
+            $stmt = $this->conn->prepare($sql);
+            if ($limit !== null && $offset !== null) {
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            }
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e);

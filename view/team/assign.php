@@ -17,9 +17,14 @@
         <body>
             <div class="wrapper">
                 <div class="breadcrumb">
-                    <a href="../admin/dashboard.php">Admin Dashboard</a>
-                    <a href="../team/dashboard.php">Team Dashboard</a>
-                </div>
+           <a href="/mini_pro/view/admin/dashboard.php">Admin</a> | 
+            <a href="/mini_pro/view/player/dashboard.php">Player</a> | 
+            <a href="/mini_pro/view/team/dashboard.php">Team</a> | 
+            <a href="/mini_pro/view/tournament/dashboard.php">Tournament</a> | 
+            <a href="/mini_pro/view/match/dashboard.php">Match</a> | 
+            <a href="/mini_pro/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_pro/view/leaderboard/dashboard.php">Leaderboard</a>
+        </div>
 
                 <h2>Assign Team to Tournament</h2>
                 <p class="subtitle">Welcome, <?php if (isset($_COOKIE['name'])) echo strtoupper($_COOKIE['name']); ?></p>
@@ -29,7 +34,7 @@
 
                 <div class="section">
                     <div class="form-group">
-                        <label>Select Verified Tournament</label>
+                        <label>Select Tournament</label>
                         <select id="tourselect">
                             <option value="">-- Select Tournament --</option>
                         </select>
@@ -123,7 +128,7 @@
 
 
             <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
-            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/verifiedtour.php') ?>
+            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/nonverified.php') ?>
 
         </body>
 

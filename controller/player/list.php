@@ -12,8 +12,11 @@ try {
         exit;
     }
 
+    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : null;
+
     $playerModel = new Player($conn);
-    $player = $playerModel->getAllPlayers();
+    $player = $playerModel->getAllPlayers($limit, $offset);
 
     if ($player) {
         echo json_encode(["status" => "success", "message" => "players fetched", "data" => $player]);

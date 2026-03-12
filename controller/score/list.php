@@ -12,8 +12,11 @@ try {
         exit;
     }
 
+    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : null;
+
     $matchModel = new Scores($conn);
-    $match = $matchModel->getMatchscore();
+    $match = $matchModel->getMatchscore($limit, $offset);
 
     if ($match) {
         echo json_encode(["status" => "success", "message" => "matches fetched", "data" => $match]);

@@ -17,8 +17,13 @@ requireAdmin();
 <body>
     <div class="wrapper">
         <div class="breadcrumb">
-            <a href="../admin/dashboard.php">Admin Dashboard</a>
-            <a href="../tournament/dashboard.php">Tournament Dashboard</a>
+           <a href="/mini_pro/view/admin/dashboard.php">Admin</a> | 
+            <a href="/mini_pro/view/player/dashboard.php">Player</a> | 
+            <a href="/mini_pro/view/team/dashboard.php">Team</a> | 
+            <a href="/mini_pro/view/tournament/dashboard.php">Tournament</a> | 
+            <a href="/mini_pro/view/match/dashboard.php">Match</a> | 
+            <a href="/mini_pro/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_pro/view/leaderboard/dashboard.php">Leaderboard</a>
         </div>
 
         <h2>Delete Tournament</h2>

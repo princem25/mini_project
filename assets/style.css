@@ -76,6 +76,50 @@ a:hover {
     margin-bottom: 5px;
 }
 
+.password-container {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding-right: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.password-container:focus-within {
+    border-color: #4a6fa5;
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+    background: #fff;
+}
+
+.password-container input {
+    flex: 1;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding-right: 0 !important;
+    width: 100%;
+}
+
+.toggle-password {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="date"],

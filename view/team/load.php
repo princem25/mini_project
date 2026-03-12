@@ -1,19 +1,25 @@
 <?php
 require_once __DIR__ . '/../../config/auth_check.php';
-requireAdmin();
+requireLogin();
 ?>
 <script>
 
-$("#loadteams").click(function () {
+let teamOffset = 0;
+const teamLimit = 5;
 
-console.log("btn clicked");
+function loadTeams() {
+    console.log("load teams with offset", teamOffset);
     
-    $.get("../../controller/team/list.php", function (response) {
+    $.get("../../controller/team/list.php", 
+    {
+        limit: teamLimit,
+        offset: teamOffset
+    }, 
+    function (response) {
 
-  
-console.log("resp send");
+        console.log("resp send");
 
-        if (response.status === "success") {
+        if (response.status === "success" && response.data.length > 0) {
 
             let table = `
                 <table border="1" cellpadding="8">
@@ -37,17 +43,39 @@ console.log("resp send");
                 `;
             });
 
-            table += `</table>`;
+            table += `</table><br>`;
+            
+            if (teamOffset > 0) {
+                table += `<button id="prevTeamBtn">Previous</button> `;
+            }
+            table += `<button id="nextTeamBtn">Next</button>`;
 
             $("#datateam").html(table).show();
             $("#error").html("");
 
+            $("#prevTeamBtn").off("click").on("click", function() {
+                teamOffset = Math.max(0, teamOffset - teamLimit);
+                loadTeams();
+            });
+
+            $("#nextTeamBtn").off("click").on("click", function() {
+                teamOffset += teamLimit;
+                loadTeams();
+            });
+
+        } else if (response.status === "success" && response.data.length === 0) {
+            $("#datateam").append("<p>No more data available.</p>");
+            $("#nextTeamBtn").hide();
         } else {
             $("#error").html(response.message);
         }
 
     }, "json");
+}
 
+$("#loadteams").click(function () {
+    teamOffset = 0;
+    loadTeams();
 });
 
 </script>
