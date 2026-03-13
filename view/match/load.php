@@ -9,11 +9,13 @@ const matchLimit = 5;
 
 function loadMatches() {
     console.log("load matches with offset", matchOffset);
+    let searchTerm = $("#searchMatch").val() || "";
     
     $.get("../../controller/match/list.php", 
     {
         limit: matchLimit,
-        offset: matchOffset
+        offset: matchOffset,
+        search: searchTerm
     }, 
     function (response) {
 
@@ -77,7 +79,15 @@ function loadMatches() {
     }, "json");
 }
 
+$("#loadmatches").before('<input type="text" id="searchMatch" placeholder="Search by Status or Date..." style="margin-right:10px;"><button id="btnSearchMatch" style="margin-right:10px;">Search</button>');
+
 $("#loadmatches").click(function () {
+    matchOffset = 0;
+    $("#searchMatch").val("");
+    loadMatches();
+});
+
+$("#btnSearchMatch").click(function() {
     matchOffset = 0;
     loadMatches();
 });

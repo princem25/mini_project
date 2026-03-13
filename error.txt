@@ -24,16 +24,16 @@
 07:56:44 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
 07:56:48 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
 07:58:06 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'
-08:00:02 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'C:\xampp\htdocs\mini_pro\model\usermodel.php
+08:00:02 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'C:\xampp\htdocs\mini_project\model\usermodel.php
 08:00:24 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'31
 08:02:13 2026-02-26 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'31
 08:01:02 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
 08:01:54 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
-08:02:30 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_pro\model\tournament.php
-08:02:52 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_pro\model\tournament.php20
-08:03:18 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20
-08:04:12 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20
-08:04:23 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_pro\model\tournament.php20
+08:02:30 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_project\model\tournament.php
+08:02:52 2026-02-27 : SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1C:\xampp_new\htdocs\mini_project\model\tournament.php20
+08:03:18 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_project\model\tournament.php20
+08:04:12 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_project\model\tournament.php20
+08:04:23 2026-02-27 : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokensC:\xampp_new\htdocs\mini_project\model\tournament.php20
 06:27:54 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
 06:28:19 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
 06:29:05 2026-03-02 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tour_id' in 'field list'
@@ -256,3 +256,20 @@
         GROUP BY t.team_id, t.team_name
 
         ORDER BY total_points...' at line 39
+08:16:22 2026-03-12 : SQLSTATE[HY000]: General error: 1442 Can't update table 'tournaments' in stored function/trigger because it is already used by statement which invoked this stored function/trigger
+08:16:28 2026-03-12 : SQLSTATE[HY000]: General error: 1442 Can't update table 'tournaments' in stored function/trigger because it is already used by statement which invoked this stored function/trigger
+08:16:33 2026-03-12 : SQLSTATE[HY000]: General error: 1442 Can't update table 'tournaments' in stored function/trigger because it is already used by statement which invoked this stored function/trigger
+08:16:39 2026-03-12 : SQLSTATE[HY000]: General error: 1442 Can't update table 'tournaments' in stored function/trigger because it is already used by statement which invoked this stored function/trigger
+08:16:55 2026-03-12 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause'
+08:17:00 2026-03-12 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause'
+
+05:29:32 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:36 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:40 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:44 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:48 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:52 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:29:56 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:30:00 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:30:05 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+05:30:09 2026-03-13 : SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it

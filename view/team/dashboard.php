@@ -10,20 +10,20 @@ requireAdmin();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <link rel="stylesheet" href="/mini_project/assets/style.css">
     <title>Team Dashboard</title>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="breadcrumb">
-            <a href="/mini_pro/view/admin/dashboard.php">Admin</a> | 
-            <a href="/mini_pro/view/player/dashboard.php">Player</a> | 
-            <a href="/mini_pro/view/team/dashboard.php">Team</a> | 
-            <a href="/mini_pro/view/tournament/dashboard.php">Tournament</a> | 
-            <a href="/mini_pro/view/match/dashboard.php">Match</a> | 
-            <a href="/mini_pro/view/match_score/dashboard.php">Score</a> | 
-            <a href="/mini_pro/view/leaderboard/dashboard.php">Leaderboard</a>
+            <a href="/mini_project/view/admin/dashboard.php">Admin</a> | 
+            <a href="/mini_project/view/player/dashboard.php">Player</a> | 
+            <a href="/mini_project/view/team/dashboard.php">Team</a> | 
+            <a href="/mini_project/view/tournament/dashboard.php">Tournament</a> | 
+            <a href="/mini_project/view/match/dashboard.php">Match</a> | 
+            <a href="/mini_project/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_project/view/leaderboard/dashboard.php">Leaderboard</a>
         </div>
 
         <h2>Team Dashboard</h2>
@@ -43,8 +43,8 @@ requireAdmin();
         </div>
 
         <p id="error"></p>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/tournament/load.php') ?>
         <?php require_once('load.php') ?>
     </div>
 </body>

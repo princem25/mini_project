@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <link rel="stylesheet" href="/mini_project/assets/style.css">
     <title>Registration</title>
 </head>
 
@@ -42,7 +42,7 @@
         <input type="button" name="btn" value="Register" id="button" class="btn-block">
 
         <div class="auth-footer">
-            Already have an account? <a href="/mini_pro/view/auth/login.php">Login</a>
+            Already have an account? <a href="/mini_project/view/auth/login.php">Login</a>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
                     $("#error").html("");
                     $("#success").html("");
                     console.log("sending request...");  
-                    $.post("/mini_pro/controller/auth/register.php", {
+                    $.post("/mini_project/controller/auth/register.php", {
                             name,
                             email,
                             pass,

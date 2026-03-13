@@ -12,11 +12,11 @@ requireLogin();
     $(document).ready(function() {
 
         $("#logout").click(function() {
-            $.get("/mini_pro/controller/auth/logout.php", function(resp) {
+            $.get("/mini_project/controller/auth/logout.php", function(resp) {
                 console.log(resp);
 
                 if (resp.status === "ok") {
-                    window.location.href = "/mini_pro/view/auth/login.php";
+                    window.location.href = "/mini_project/view/auth/login.php";
                 } else {
                     $("#error").html(resp.message);
                 }

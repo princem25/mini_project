@@ -9,9 +9,9 @@ $team2 = $_POST['team2'] ?? '';
 $date = $_POST['date'] ?? '';
 $status = $_POST['status'] ?? '';
 
-if($team1 === $team2 && $status != "draw"){
-      echo json_encode(["status" => "failed", "message" => "winner should be draw"]);
-        exit;
+if ($team1 === $team2) {
+    echo json_encode(["status" => "failed", "message" => "Team cannot play against itself"]);
+    exit;
 }
 
 require_once __DIR__ . "/../../config/dbconfig.php";
@@ -55,6 +55,12 @@ try {
         exit;
     }
 
+    $teamBusy = $matchModel->checkTeamAvailabilityOnDate($team1, $team2, $date);
+    if ($teamBusy) {
+        echo json_encode(["status" => "failed", "message" => "One or both teams already have a match scheduled on this day"]);
+        exit;
+    }
+
     $newmatch = $matchModel->registerMatch($tourid, $team1, $team2, $date,$status);
 
     if ($newmatch) {
@@ -69,3 +75,4 @@ try {
 } finally {
     $conn = null;
 }
+

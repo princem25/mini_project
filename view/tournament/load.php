@@ -10,7 +10,7 @@ const tourLimit = 5;
 function loadTournaments() {
     console.log("load tournaments with offset", tourOffset);
    
-    $.get("/mini_pro/controller/tournament/list.php", 
+    $.get("/mini_project/controller/tournament/list.php", 
     {
         limit: tourLimit,
         offset: tourOffset

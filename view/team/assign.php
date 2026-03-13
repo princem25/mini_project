@@ -10,20 +10,20 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <link rel="stylesheet" href="/mini_pro/assets/style.css">
+            <link rel="stylesheet" href="/mini_project/assets/style.css">
             <title>Assign Team</title>
         </head>
 
         <body>
             <div class="wrapper">
                 <div class="breadcrumb">
-           <a href="/mini_pro/view/admin/dashboard.php">Admin</a> | 
-            <a href="/mini_pro/view/player/dashboard.php">Player</a> | 
-            <a href="/mini_pro/view/team/dashboard.php">Team</a> | 
-            <a href="/mini_pro/view/tournament/dashboard.php">Tournament</a> | 
-            <a href="/mini_pro/view/match/dashboard.php">Match</a> | 
-            <a href="/mini_pro/view/match_score/dashboard.php">Score</a> | 
-            <a href="/mini_pro/view/leaderboard/dashboard.php">Leaderboard</a>
+           <a href="/mini_project/view/admin/dashboard.php">Admin</a> | 
+            <a href="/mini_project/view/player/dashboard.php">Player</a> | 
+            <a href="/mini_project/view/team/dashboard.php">Team</a> | 
+            <a href="/mini_project/view/tournament/dashboard.php">Tournament</a> | 
+            <a href="/mini_project/view/match/dashboard.php">Match</a> | 
+            <a href="/mini_project/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_project/view/leaderboard/dashboard.php">Leaderboard</a>
         </div>
 
                 <h2>Assign Team to Tournament</h2>
@@ -52,7 +52,7 @@
                     <button id="btn">Assign</button>
                 </div>
 
-                <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
+                <?php require_once('C:/xampp_3/htdocs/mini_project/view/auth/logout.php') ?>
             </div>
 
             <script>
@@ -73,7 +73,7 @@
                             $("#error").html("");
                             $("#success").html("");
         
-                            $.post("/mini_pro/controller/team/assign.php", {
+                            $.post("/mini_project/controller/team/assign.php", {
                                     tourid,
                                     teamid
                                 },
@@ -102,7 +102,7 @@
             <script>
                 // Load teams into dropdown
                 function loadTeams() {
-                    $.get("/mini_pro/controller/team/available.php", function(response) {
+                    $.get("/mini_project/controller/team/available.php", function(response) {
 
                         if (response.status === "success") {
 
@@ -127,8 +127,8 @@
 
 
 
-            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
-            <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/nonverified.php') ?>
+            <?php require_once('C:/xampp_3/htdocs/mini_project/view/team/load.php') ?>
+            <?php require_once('C:/xampp_3/htdocs/mini_project/view/tournament/nonverified.php') ?>
 
         </body>
 

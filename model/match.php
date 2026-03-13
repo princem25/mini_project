@@ -21,11 +21,14 @@ class Matches
     public function registerMatch($tourid, $team1, $team2, $date, $status)
     {
         try {
+            // Ensure canonical order: smaller team_id first
+            $minTeam = min($team1, $team2);
+            $maxTeam = max($team1, $team2);
             $stmt = $this->conn->prepare(
                 "INSERT INTO matches (tour_id,team1_id,team2_id,time,status)
                  VALUES (?,?,?,?,?)"
             );
-            $stmt->execute([$tourid, $team1, $team2, $date, $status]);
+            $stmt->execute([$tourid, $minTeam, $maxTeam, $date, $status]);
             return true;
         } catch (PDOException $e) {
             $this->logError($e);
@@ -36,13 +39,13 @@ class Matches
     public function checkMatch($team1, $team2)
     {
         try {
+            // Always check in canonical order (smaller id first)
+            $minTeam = min($team1, $team2);
+            $maxTeam = max($team1, $team2);
             $stmt = $this->conn->prepare(
-                "SELECT match_id FROM matches WHERE team1_id = ? and team2_id = ?
-                union
-                SELECT match_id FROM matches WHERE team1_id = ? and team2_id = ?
-                "
+                "SELECT match_id FROM matches WHERE team1_id = ? and team2_id = ?"
             );
-            $stmt->execute([$team1, $team2, $team2, $team1]);
+            $stmt->execute([$minTeam, $maxTeam]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
             $this->logError($e);
@@ -50,14 +53,22 @@ class Matches
         }
     }
 
-    public function getMatches($limit = null, $offset = null)
+    public function getMatches($limit = null, $offset = null, $search = null)
     {
         try {
             $sql = "SELECT * FROM matches";
+            if ($search !== null && $search !== "") {
+                $sql .= " WHERE status LIKE :search OR time LIKE :search";
+            }
             if ($limit !== null && $offset !== null) {
                 $sql .= " LIMIT :limit OFFSET :offset";
             }
             $stmt = $this->conn->prepare($sql);
+            
+            if ($search !== null && $search !== "") {
+                $searchTerm = '%' . $search . '%';
+                $stmt->bindParam(':search', $searchTerm, PDO::PARAM_STR);
+            }
             if ($limit !== null && $offset !== null) {
                 $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
                 $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -139,7 +150,7 @@ class Matches
         }
     }
 
-      public function getmatchdate()
+    public function getmatchdate()
     {
         try {
             $stmt = $this->conn->query(
@@ -153,5 +164,36 @@ class Matches
         }
     }
 
+    public function checkTeamAvailabilityOnDate($team1, $team2, $date)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT match_id FROM matches 
+                 WHERE (team1_id IN (?, ?) OR team2_id IN (?, ?))
+                 AND DATE(time) = DATE(?)"
+            );
+            $stmt->execute([$team1, $team2, $team1, $team2, $date]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+
+    public function deleteMatch($id)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "DELETE FROM matches WHERE match_id = ?"
+            );
+            $stmt->execute([$id]);
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+
     
 }
+

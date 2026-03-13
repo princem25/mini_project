@@ -16,6 +16,32 @@ try {
     }
 
     $teamModel = new Team($conn);
+
+    require_once __DIR__ . "/../../model/player.php";
+    $playerModel = new Player($conn);
+    $playerCount = $playerModel->getPlayerCountByTeam($teamid);
+    
+    if ($playerCount < 5) {
+        echo json_encode(["status" => "error", "message" => "A team must have minimum 5 players to participate in a tournament."]);
+        exit;
+    }
+
+    // Verify team is not currently tied up in an ongoing tournament
+    $teamInfo = $teamModel->getTeamById($teamid);
+    if ($teamInfo && $teamInfo['tour_id'] != null) {
+        $currentTourId = $teamInfo['tour_id'];
+        
+        require_once __DIR__ . "/../../model/tournament.php";
+        $tourModel = new Tournament($conn);
+        $tourInfo = $tourModel->getTourById($currentTourId);
+        
+        // Prevent reassignment if the current tournament is active or ongoing
+        if ($tourInfo && strtolower($tourInfo['status']) !== 'completed') {
+            echo json_encode(["status" => "error", "message" => "Team is currently assigned to an active tournament."]);
+            exit;
+        }
+    }
+
     $team = $teamModel->teamAssignTour($teamid, $tourid);
 
     if (!$team) {
@@ -30,3 +56,4 @@ try {
 } finally {
     $conn = null;
 }
+

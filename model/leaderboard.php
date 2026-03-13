@@ -30,7 +30,7 @@ class Leaderboard
             t.team_id,
             t.team_name,
 
-            COUNT(m.match_id) AS matches_played,
+            SUM(CASE WHEN m.status = 'Completed' THEN 1 ELSE 0 END) AS matches_played,
 
             SUM(CASE 
                 WHEN ms.winner_team_id = t.team_id THEN 1
@@ -122,3 +122,4 @@ class Leaderboard
         }
     }
 }
+

@@ -3,7 +3,7 @@
                 // Load teams into dropdown
                 function loadTours() {
 
-                    $.get("/mini_pro/controller/tournament/list.php", function(response) {
+                    $.get("/mini_project/controller/tournament/list.php", function(response) {
 
                         if (response.status === "success") {
 

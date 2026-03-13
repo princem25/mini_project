@@ -51,6 +51,11 @@ class Scores
 
             $stmt->execute([$team1, $team2, $winner, $matchid]);
 
+            $stmtStatus = $this->conn->prepare(
+                "UPDATE matches SET status = 'Completed' WHERE match_id = ?"
+            );
+            $stmtStatus->execute([$matchid]);
+
             return true;
         } catch (PDOException $e) {
             $this->logError($e);
@@ -92,4 +97,19 @@ class Scores
             return false;
         }
     }
+
+    public function deletescore($matchid)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "DELETE FROM match_scores WHERE match_id = ?"
+            );
+            $stmt->execute([$matchid]);
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
 }
+

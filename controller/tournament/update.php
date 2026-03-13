@@ -42,6 +42,17 @@ try {
         exit;
     }
 
+    if (strtolower($status) !== 'upcoming') {
+        require_once __DIR__ . "/../../model/team.php";
+        $teamModel = new Team($conn);
+        $teamCount = $teamModel->getTeamCountByTournament($id);
+        
+        if ($teamCount < 2) {
+            echo json_encode(["status" => "error", "message" => "A tournament must have at least 2 teams before it can be Ongoing or Completed."]);
+            exit;
+        }
+    }
+
     $newTour = $tourModel->updateTour($id, $tourName, $start, $end, $type, $status);
 
     if ($newTour !== false) {
@@ -56,3 +67,4 @@ try {
 } finally {
     $conn = null;
 }
+

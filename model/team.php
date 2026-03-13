@@ -109,11 +109,27 @@ class Team
         }
     }
 
+    public function getTeamById($id)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT * FROM teams WHERE team_id = ?"
+            );
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
+
     public function teamWithoutTour()
     {
         try {
             $stmt = $this->conn->query(
-                "SELECT * FROM teams where tour_id is null and verified = 1"
+                "SELECT t.* FROM teams t 
+                 LEFT JOIN tournaments tour ON t.tour_id = tour.tour_id 
+                 WHERE t.verified = 1 AND (t.tour_id IS NULL OR tour.status = 'Completed')"
             );
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -148,6 +164,31 @@ class Team
         } catch (PDOException $e) {
             $this->logError($e);
             return false;
+        }
+    }
+
+    public function getTeamCountByTournament($tourid)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM teams WHERE tour_id = ?");
+            $stmt->execute([$tourid]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int)($result['count'] ?? 0);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return 0;
+        }
+    }
+
+    public function getTeamsByTourId($tourid)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM teams WHERE tour_id = ?");
+            $stmt->execute([$tourid]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return array();
         }
     }
 }

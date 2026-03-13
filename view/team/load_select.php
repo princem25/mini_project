@@ -8,7 +8,7 @@ requireAdmin();
 
     // Load teams into dropdown
     function loadTeams() {
-        $.get("/mini_pro/controller/team/list.php", function (response) {
+        $.get("/mini_project/controller/team/list.php", function (response) {
 
             if (response.status === "success") {
 

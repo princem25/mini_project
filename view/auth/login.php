@@ -3,9 +3,9 @@ session_start();
 
 if(isset($_SESSION['role'])){
     if($_SESSION['role'] == 1)
-        header("Location:/mini_pro/view/admin/dashboard.php");
+        header("Location:/mini_project/view/admin/dashboard.php");
     else
-        header("Location:/mini_pro/view/player_view/dashboard.php");
+        header("Location:/mini_project/view/player_view/dashboard.php");
     exit;
 }
 ?>
@@ -16,7 +16,7 @@ if(isset($_SESSION['role'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <link rel="stylesheet" href="/mini_project/assets/style.css">
     <title>Login</title>
 </head>
 
@@ -48,7 +48,7 @@ if(isset($_SESSION['role'])){
         <button id="login" class="btn-block">Login</button>
 
         <div class="auth-footer">
-            Don't have an account? <a href="/mini_pro/view/auth/register.php">Register</a>
+            Don't have an account? <a href="/mini_project/view/auth/register.php">Register</a>
         </div>
     </div>
 
@@ -72,7 +72,7 @@ if(isset($_SESSION['role'])){
                     $("#error").html("");
                     $("#success").html("");
                      console.log("req sending");
-                    $.post("/mini_pro/controller/auth/login.php", {
+                    $.post("/mini_project/controller/auth/login.php", {
                             email,
                             pass,
                             role
@@ -81,8 +81,8 @@ if(isset($_SESSION['role'])){
                               console.log("res come");
                             console.log(response);
                             if (response.status === "success") {
-                                if(response.role === 1) window.location.href = "/mini_pro/view/admin/dashboard.php";
-                                else if(response.role  === 2) window.location.href = "/mini_pro/view/player_view/dashboard.php";
+                                if(response.role === 1) window.location.href = "/mini_project/view/admin/dashboard.php";
+                                else if(response.role  === 2) window.location.href = "/mini_project/view/player_view/dashboard.php";
                             } else {
                                 $("#error").html(response.message);
                                 $("#success").html("");

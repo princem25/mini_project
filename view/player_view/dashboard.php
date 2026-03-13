@@ -10,7 +10,7 @@ requirePlayer();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <link rel="stylesheet" href="/mini_project/assets/style.css">
     <title>Player Dashboard</title>
 </head>
 
@@ -42,12 +42,12 @@ requirePlayer();
 
         <p id="error"></p>
 
-     <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/load.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/team/load.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/player/load.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/leaderboard/list.php') ?>
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/tournament/verifiedtour.php') ?>
+     <?php require_once('C:/xampp_3/htdocs/mini_project/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/tournament/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/team/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/player/load.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/leaderboard/list.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/tournament/verifiedtour.php') ?>
     </div>
 </body>
 

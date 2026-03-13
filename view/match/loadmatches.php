@@ -3,7 +3,7 @@
 
     // Load matchs into dropdown
     function loadmatches() {
-        $.get("/mini_pro/controller/match/list.php", function (response) {
+        $.get("/mini_project/controller/match/list.php", function (response) {
 
             if (response.status === "success") {
 

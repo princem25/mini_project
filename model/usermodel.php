@@ -31,14 +31,14 @@ class User
     }
 
     // CHECK IF USER EXISTS
-    public function check($email, $roleid)
+    public function check($email, $roleid = null)
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT user_id FROM users WHERE email = ? AND role_id = ?"
+                "SELECT user_id FROM users WHERE email = ?"
             );
 
-            $stmt->execute([$email, $roleid]);
+            $stmt->execute([$email]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 

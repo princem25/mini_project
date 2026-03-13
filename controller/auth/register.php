@@ -50,3 +50,4 @@ try {
     file_put_contents(__DIR__ . "/../../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . $e->getLine() . PHP_EOL, FILE_APPEND);
     echo json_encode(["status" => "error", "message" => "Server error"]);
 }
+

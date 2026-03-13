@@ -10,20 +10,20 @@ requireAdmin();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/mini_pro/assets/style.css">
+    <link rel="stylesheet" href="/mini_project/assets/style.css">
     <title>Create score</title>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="breadcrumb">
-              <a href="/mini_pro/view/admin/dashboard.php">Admin</a> | 
-            <a href="/mini_pro/view/player/dashboard.php">Player</a> | 
-            <a href="/mini_pro/view/team/dashboard.php">Team</a> | 
-            <a href="/mini_pro/view/tournament/dashboard.php">Tournament</a> | 
-            <a href="/mini_pro/view/match/dashboard.php">Match</a> | 
-            <a href="/mini_pro/view/match_score/dashboard.php">Score</a> | 
-            <a href="/mini_pro/view/leaderboard/dashboard.php">Leaderboard</a>
+              <a href="/mini_project/view/admin/dashboard.php">Admin</a> | 
+            <a href="/mini_project/view/player/dashboard.php">Player</a> | 
+            <a href="/mini_project/view/team/dashboard.php">Team</a> | 
+            <a href="/mini_project/view/tournament/dashboard.php">Tournament</a> | 
+            <a href="/mini_project/view/match/dashboard.php">Match</a> | 
+            <a href="/mini_project/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_project/view/leaderboard/dashboard.php">Leaderboard</a>
         </div>
 
         <h2>Match Score</h2>
@@ -46,33 +46,17 @@ requireAdmin();
                 </select>
 
                 <label>team1_score</label>
-                <select class="team1">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                </select>
+                <input type="number" class="team1" min="0" placeholder="Enter Team 1 Score">
 
                 <label>team2_score</label>
-                <select class="team2">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                </select>
-                <label>winner team</label>
-
-                <select class="winner">
-                    <option value="Draw">Draw</option>
-                </select>
-
-                <label>match status</label>
-                <select class="status">
-                    <option value="Completed">Completed</option>
-                </select>
+                <input type="number" class="team2" min="0" placeholder="Enter Team 2 Score">
             </div>
             <p id="error"></p>
             <p id="success"></p>
             <button id="btn">Update</button>
         </div>
 
-        <?php require_once('C:/xampp_3/htdocs/mini_pro/view/auth/logout.php') ?>
+        <?php require_once('C:/xampp_3/htdocs/mini_project/view/auth/logout.php') ?>
     </div>
 
     <script>
@@ -84,12 +68,10 @@ requireAdmin();
                 var matchid = $(".matchselect").val();
                 var team1 = $(".team1").val();
                 var team2 = $(".team2").val();
-                var winner = $(".winner").val();
-                var status = $(".status").val();
 
-                if (matchid == "" || team1 == "" || team2 == "" || winner == "") {
+                if (matchid == "" || team1 == "" || team2 == "" || team1 < 0 || team2 < 0) {
 
-                    $("#error").html("all fields are required");
+                    $("#error").html("all fields are required and scores cannot be negative");
                     $("#success").html("");
 
                 } else {
@@ -97,12 +79,10 @@ requireAdmin();
                     $("#error").html("");
                     $("#success").html("");
 
-                    $.post("/mini_pro/controller/score/create.php", {
+                    $.post("/mini_project/controller/score/create.php", {
                             matchid,
                             team1,
                             team2,
-                            winner,
-                            status,
                             team1id,
                             team2id
 
@@ -131,39 +111,21 @@ requireAdmin();
 
                 if (matchid != "") {
 
-                    $.post("/mini_pro/controller/match/matchfromid.php", {
+                    $.post("/mini_project/controller/match/matchfromid.php", {
                             id: matchid
                         },
                         function(response) {
 
                             console.log(response);
                             if (response.status === "success") {
-                                $(".winner").html(""); // clear old options
                                 team1id = response.data.team1_id;
                                 team2id = response.data.team2_id;
-
-                                // Keep Draw option
-                                $(".winner").append('<option value="Draw">Draw</option>');
-
-                                 $(".winner").append(
-                                    '<option value="' + response.data.team1_id + '">' + "Team 1 ID : " + response.data.team1_id + '</option>'
-
-                                );
-
-                                $(".winner").append(
-                                    '<option value="' + response.data.team2_id + '">' + "Team 2 ID : " + response.data.team2_id + '</option>'
-                                );
-
-
                             } else {
 
                                 console.log("Failed:", response.message);
 
                                 $("#error").html(response.message || "Unable to load teams for this match.");
                                 $("#success").html("");
-
-                                $(".winner").html('<option value="">No teams found</option>');
-
                             }
 
                         },
@@ -178,9 +140,9 @@ requireAdmin();
     </script>
 
 
-    <?php require_once('C:/xampp_3/htdocs/mini_pro/view/match/load.php') ?>
-    <?php require_once('C:/xampp_3/htdocs/mini_pro/view/match/loadmatches.php') ?>
-    <?php require_once('C:/xampp_3/htdocs/mini_pro/view/match_score/load.php') ?>
+    <?php require_once('C:/xampp_3/htdocs/mini_project/view/match/load.php') ?>
+    <?php require_once('C:/xampp_3/htdocs/mini_project/view/match/loadmatches.php') ?>
+    <?php require_once('C:/xampp_3/htdocs/mini_project/view/match_score/load.php') ?>
 
 </body>
 

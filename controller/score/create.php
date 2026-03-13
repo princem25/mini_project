@@ -4,27 +4,25 @@ requireAdmin();
 header('Content-Type: application/json');
 
 $matchid = ($_POST['matchid'] ?? '');
-$team1 = $_POST['team1'] ?? '';
-$team2 = $_POST['team2'] ?? '';
-$winner = $_POST['winner'] ?? '';
-$status = $_POST['status'] ?? '';
+$team1 = (int)($_POST['team1'] ?? 0);
+$team2 = (int)($_POST['team2'] ?? 0);
 $team1id = $_POST['team1id'] ?? '';
 $team2id = $_POST['team2id'] ?? '';
 
-if ($team1 === $team2 && $winner != "Draw") {
-    echo json_encode(["status" => "failed", "message" => "winner should be draw"]);
-    exit;
-} else if ($team1 > $team2 && $winner != $team1id) {
-    echo json_encode(["status" => "failed", "message" => "winner should be team 1"]);
-    exit;
-} else if ($team1 < $team2 && $winner != $team2id) {
-    echo json_encode(["status" => "failed", "message" => "winner should be team 2"]);
+if ($team1 < 0 || $team2 < 0) {
+    echo json_encode(["status" => "failed", "message" => "Negative scores are not allowed"]);
     exit;
 }
 
+if ($team1 > $team2) {
+    $winner = $team1id;
+} else if ($team2 > $team1) {
+    $winner = $team2id;
+} else {
+    $winner = null;
+}
 
-if($winner == "Draw") $winner = null;
-
+$status = 'Completed';
 
 
 require_once __DIR__ . "/../../config/dbconfig.php";
@@ -53,6 +51,16 @@ try {
         exit;
     }
 
+    require_once __DIR__ . "/../../model/match.php";
+    require_once __DIR__ . "/../../model/tournament.php";
+    $matchesModel = new Matches($conn);
+    $tourModel = new Tournament($conn);
+    
+    $matchDetails = $matchesModel->getMatch($matchid);
+    if ($matchDetails && isset($matchDetails['tour_id'])) {
+        $tourModel->checkAndCompleteTournament($matchDetails['tour_id']);
+    }
+
     echo json_encode(["status" => "success", "message" => "matchscore created successfully"]);
 } catch (PDOException $e) {
     file_put_contents(__DIR__ . "/../../error.txt", date("H:i:s Y-m-d : ") . $e->getMessage() . PHP_EOL, FILE_APPEND);
@@ -60,3 +68,4 @@ try {
 } finally {
     $conn = null;
 }
+

@@ -17,7 +17,7 @@ function loadLeaderboard() {
         return;
     }
 
-    $.post("/mini_pro/controller/leaderboard/list.php", 
+    $.post("/mini_project/controller/leaderboard/list.php", 
     { 
         tourid: tourid,
         limit: limit,

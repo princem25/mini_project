@@ -14,9 +14,10 @@ try {
 
     $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
     $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : null;
+    $search = $_GET['search'] ?? null;
 
     $matchModel = new Matches($conn);
-    $match = $matchModel->getMatches($limit, $offset);
+    $match = $matchModel->getMatches($limit, $offset, $search);
 
     if ($match) {
         echo json_encode(["status" => "success", "message" => "matches fetched", "data" => $match]);
@@ -30,3 +31,4 @@ try {
 } finally {
     $conn = null;
 }
+

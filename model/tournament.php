@@ -50,11 +50,18 @@ class Tournament
     public function deleteTour($id)
     {
         try {
-            $stmt = $this->conn->prepare(
+            // First, set teams' tour_id to NULL
+            $stmt1 = $this->conn->prepare(
+                "UPDATE teams SET tour_id = NULL WHERE tour_id = ?"
+            );
+            $stmt1->execute([$id]);
+
+            // Then delete the tournament
+            $stmt2 = $this->conn->prepare(
                 "DELETE FROM tournaments WHERE tour_id = ?"
             );
-            $stmt->execute([$id]);
-            return $stmt->rowCount();
+            $stmt2->execute([$id]);
+            return $stmt2->rowCount();
         } catch (PDOException $e) {
             $this->logError($e);
             return false;
@@ -101,7 +108,7 @@ class Tournament
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT tour_id FROM tournaments WHERE tour_id = ?"
+                "SELECT * FROM tournaments WHERE tour_id = ?"
             );
             $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -153,4 +160,30 @@ class Tournament
             return false;
         }
     }
+
+    public function checkAndCompleteTournament($tour_id)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM matches WHERE tour_id = ?");
+            $stmt->execute([$tour_id]);
+            $totalMatches = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+            if ($totalMatches > 0) {
+                $stmt2 = $this->conn->prepare("SELECT COUNT(*) as incomplete FROM matches WHERE tour_id = ? AND status != 'Completed'");
+                $stmt2->execute([$tour_id]);
+                $incomplete = $stmt2->fetch(PDO::FETCH_ASSOC)['incomplete'] ?? 0;
+
+                if ($incomplete == 0) {
+                    $stmt3 = $this->conn->prepare("UPDATE tournaments SET status = 'Completed' WHERE tour_id = ? AND status != 'Completed'");
+                    $stmt3->execute([$tour_id]);
+                    return true;
+                }
+            }
+            return false;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return false;
+        }
+    }
 }
+

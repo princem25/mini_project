@@ -108,4 +108,18 @@ class Player
             return false;
         }
     }
+
+    public function getPlayerCountByTeam($teamid)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM players WHERE team_id = ?");
+            $stmt->execute([$teamid]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int)($result['count'] ?? 0);
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return 0;
+        }
+    }
 }
+
