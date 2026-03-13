@@ -36,7 +36,7 @@ requirePlayer();
           <select id="tourselect">
             <option value="">-- Select Tournament --</option>
         </select><br><br>
-          <button id="loadleaderboard">leaderboard</button>
+          <button id="loadleaderboard">leaderboard</button><br><br>
         <div id="dataleaderboard"></div>
       
 

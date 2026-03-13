@@ -17,12 +17,12 @@ requireAdmin();
 <body>
     <div class="wrapper">
         <div class="breadcrumb">
-             <a href="/mini_project/view/admin/dashboard.php">Admin</a> | 
-            <a href="/mini_project/view/player/dashboard.php">Player</a> | 
-            <a href="/mini_project/view/team/dashboard.php">Team</a> | 
-            <a href="/mini_project/view/tournament/dashboard.php">Tournament</a> | 
-            <a href="/mini_project/view/match/dashboard.php">Match</a> | 
-            <a href="/mini_project/view/match_score/dashboard.php">Score</a> | 
+            <a href="/mini_project/view/admin/dashboard.php">Admin</a> |
+            <a href="/mini_project/view/player/dashboard.php">Player</a> |
+            <a href="/mini_project/view/team/dashboard.php">Team</a> |
+            <a href="/mini_project/view/tournament/dashboard.php">Tournament</a> |
+            <a href="/mini_project/view/match/dashboard.php">Match</a> |
+            <a href="/mini_project/view/match_score/dashboard.php">Score</a> |
             <a href="/mini_project/view/leaderboard/dashboard.php">Leaderboard</a>
         </div>
 
@@ -33,11 +33,15 @@ requireAdmin();
         <div class="section">
             <div class="form-group">
 
+
+                <button id="matchscore">Load match_score</button><br>
+                <div id="datamatchscore"></div><br>
+
                 <label>Select Match ID</label>
                 <select class="matchselect">
                     <option value="">-- Select match --</option>
                 </select>
- 
+
                 <label>team1_score</label>
                 <input type="number" class="team1" min="0" placeholder="Enter Team 1 Score">
 
@@ -62,7 +66,7 @@ requireAdmin();
                 var matchid = $(".matchselect").val();
                 var team1 = $(".team1").val();
                 var team2 = $(".team2").val();
-            
+
 
                 if (matchid == "" || team1 == "" || team2 == "" || team1 < 0 || team2 < 0) {
 
@@ -71,7 +75,7 @@ requireAdmin();
 
                 } else {
                     console.log("send");
-                    
+
                     $("#error").html("");
                     $("#success").html("");
 
@@ -85,9 +89,9 @@ requireAdmin();
                         },
                         function(response) {
                             console.log("return ");
-                            
+
                             if (response.status === "success") {
-                                 $("#error").html("");
+                                $("#error").html("");
                                 $("#success").html(response.message);
                             } else {
                                 $("#success").html("");
@@ -102,7 +106,7 @@ requireAdmin();
 
             $("#btn-delete-score").click(function() {
                 var matchid = $(".matchselect").val();
-            
+
                 if (matchid == "") {
                     $("#error").html("Please select a match to delete score");
                     $("#success").html("");
@@ -111,9 +115,9 @@ requireAdmin();
                 } else {
                     $("#error").html("");
                     $("#success").html("");
-                    
+
                     $.post("/mini_project/controller/score/delete.php", {
-                        matchid: matchid
+                            matchid: matchid
                         },
                         function(response) {
                             if (response.status === "success") {
@@ -175,7 +179,10 @@ requireAdmin();
     <script>
         // Load the match dropdown for selecting which match to edit
         function loadMatchDropdown() {
-            $.get("/mini_project/controller/match/list.php", { limit: 100, offset: 0 }, function(response) {
+            $.get("/mini_project/controller/match/list.php", {
+                limit: 100,
+                offset: 0
+            }, function(response) {
                 if (response.status === "success") {
                     let options = '<option value="">-- Select match --</option>';
                     response.data.forEach(function(match) {
@@ -188,6 +195,7 @@ requireAdmin();
 
         loadMatchDropdown();
     </script>
+    <?php require_once('C:/xampp_3/htdocs/mini_project/view/match_score/load.php') ?>
 </body>
 
 </html>
